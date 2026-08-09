@@ -1,0 +1,15 @@
+{
+  "name": "Murat Kombi",
+  "short_name": "Murat Kombi",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a0c10",
+  "theme_color": "#0a0c10",
+  "icons": [
+    {
+      "src": "assets/images/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

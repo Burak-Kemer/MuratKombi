@@ -1,0 +1,53 @@
+/* Sticky mobile call/WhatsApp bar — mobile-only, appears after hero, hides near footer. */
+
+.sticky-cta {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--z-sticky-cta);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--color-border);
+  border-top: 1px solid var(--color-border);
+  transform: translateY(100%);
+  transition: transform var(--duration-base) var(--ease-premium);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.sticky-cta.is-visible {
+  transform: translateY(0);
+}
+
+.sticky-cta__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 56px;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.sticky-cta__link--call {
+  background: var(--color-red);
+  color: var(--color-black);
+}
+
+.sticky-cta__link--whatsapp {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.sticky-cta__link svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+@media (min-width: 900px) {
+  .sticky-cta {
+    display: none;
+  }
+}

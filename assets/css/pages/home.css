@@ -1,0 +1,185 @@
+/* Homepage-specific composition — hero, trust bar placement, process/CTA spacing.
+   Everything reusable lives in components/. */
+
+/* ---- Hero: two-column on desktop (copy left, technical visual right); on mobile the
+   visual becomes a low-opacity background layer behind the stacked copy so it never
+   forces extra scroll. ---- */
+.hero {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hero__scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__scene-base {
+  position: absolute;
+  inset: -6%;
+  background: radial-gradient(120% 90% at 78% 15%, var(--color-charcoal-soft) 0%, var(--color-black) 60%);
+}
+
+.hero__scene-grid {
+  position: absolute;
+  inset: -6%;
+  opacity: 0.1;
+  -webkit-mask-image: radial-gradient(65% 65% at 78% 30%, black, transparent 72%);
+  mask-image: radial-gradient(65% 65% at 78% 30%, black, transparent 72%);
+  background-image:
+    repeating-linear-gradient(0deg, rgb(47 125 250 / 55%) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgb(47 125 250 / 55%) 0 1px, transparent 1px 40px);
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(10 12 16 / 55%) 0%, rgb(10 12 16 / 10%) 30%, rgb(10 12 16 / 95%) 100%);
+}
+
+@media (min-width: 1024px) {
+  .hero__scrim {
+    background: linear-gradient(100deg, var(--color-black) 0%, rgb(10 12 16 / 88%) 32%, rgb(10 12 16 / 15%) 62%);
+  }
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  align-content: center;
+  gap: var(--space-8);
+  padding-top: clamp(6.5rem, 5rem + 6vw, 9rem);
+  padding-bottom: var(--space-7);
+}
+
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+  }
+}
+
+.hero__text {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+}
+
+.hero__title {
+  margin-block: var(--space-5) var(--space-4);
+  font-size: clamp(2.5rem, 1.9rem + 4vw, 4.5rem);
+  line-height: 1.08;
+}
+
+.hero__lede {
+  color: var(--color-text-dim);
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-6);
+  max-width: 42ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* ---- Visual: hero photo, right column on desktop (full frame, uncropped), low-opacity
+   art-directed background on mobile/tablet (cropped to keep the technician + boiler
+   recognizable — see object-position on .hero__illustration below).
+
+   Mobile/tablet contrast is deliberately two independent layers, not one opacity value:
+   the img's own opacity dims the photo, and a separate ::after gradient sits above it
+   (below the text) for guaranteed contrast. Putting opacity on the .hero__visual
+   container instead would flatten photo+scrim into one group before dimming it,
+   making the scrim unable to add any real contrast on top of the photo. ---- */
+.hero__visual {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* must beat .hero__illustration's z-index: 1, or this paints underneath it */
+  /* Vignette anchored on the text block's own position (not the frame center) — darkest
+     where the headline sits, easing off toward the right/bottom edges the text never
+     reaches. This is what keeps the photo from reading as "text over a visible face":
+     the face falls inside the dark zone at every width, not just at one tuned crop. */
+  background: radial-gradient(
+    90% 80% at 28% 32%,
+    rgb(10 12 16 / 99%) 0%,
+    rgb(10 12 16 / 96%) 55%,
+    rgb(10 12 16 / 70%) 80%,
+    rgb(10 12 16 / 46%) 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  .hero__visual {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .hero__visual::after {
+    content: none;
+  }
+}
+
+.hero__visual picture {
+  display: contents;
+}
+
+.hero__illustration {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Mobile/tablet crop: keeps the technician's face (~55-64% width) and the boiler
+     unit (~68-85% width) in frame, trimming the empty left wall and the far-right
+     pipe fittings. See assets/images/hero/ for the source coordinates this was tuned against. */
+  object-fit: cover;
+  object-position: 78% 12%;
+  opacity: 0.28;
+  border-radius: 0; /* full-bleed background photo — no visible corner cutout at the viewport edge */
+}
+
+@media (min-width: 1024px) {
+  .hero__illustration {
+    opacity: 1;
+    width: 100%;
+    max-width: 34rem;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: var(--radius-lg); /* contained panel — matches the site's card treatment */
+  }
+}
+
+/* ---- Trust bar sits inside the hero so its promise lands in the first screen ---- */
+.hero__trust {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Service cards ---- */
+.services-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}

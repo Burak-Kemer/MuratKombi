@@ -1,0 +1,53 @@
+/* Services page — detailed service list, icon + body rows. */
+
+.service-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-block: var(--space-7);
+  scroll-margin-top: 6rem;
+}
+
+.service-detail:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 700px) {
+  .service-detail {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-7);
+  }
+}
+
+.service-detail__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-md);
+  background: rgb(47 125 250 / 10%);
+  border: 1px solid rgb(47 125 250 / 25%);
+  color: var(--color-accent);
+}
+
+.service-detail__icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.service-detail__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 42rem;
+}
+
+.service-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}

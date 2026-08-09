@@ -1,0 +1,126 @@
+/* Base element styles + shared utility classes used across pages/components. */
+
+html {
+  background: var(--color-bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+img {
+  border-radius: var(--radius-md);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Skip link — accessible, visually hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: var(--z-modal);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-accent);
+  color: var(--color-black);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: top var(--duration-fast) var(--ease-premium);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Full-viewport centered state page (404, etc.) */
+.state-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-5);
+  padding: var(--space-6);
+}
+
+/* Divider used for the "technical accent line" motif */
+.accent-divider {
+  width: 3rem;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+}
+
+.section--surface {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-head .eyebrow {
+  margin-bottom: var(--space-1);
+}
+
+.section-head__lede {
+  color: var(--color-text-dim);
+  font-size: var(--fs-md);
+}
+
+/* Reveal target — JS adds .is-visible via IntersectionObserver; CSS-only fallback if JS fails */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slow) var(--ease-premium),
+    transform var(--duration-slow) var(--ease-premium);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.no-js [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
