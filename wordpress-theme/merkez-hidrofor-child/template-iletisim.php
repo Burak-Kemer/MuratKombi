@@ -59,6 +59,25 @@ merkez_hidrofor_breadcrumbs();
 				<?php echo esc_html( $mh_business['address']['line2'] ); ?><br />
 				<?php echo esc_html( $mh_business['address']['line3'] ); ?>
 			</p>
+			<?php
+			// No Google Maps API key required — this is the public embed-without-key
+			// format, built directly from the real, verified address (no invented
+			// coordinates or place ID).
+			$mh_map_query = sprintf(
+				'%s, %s, %s',
+				$mh_business['address']['line1'],
+				$mh_business['address']['line2'],
+				$mh_business['address']['line3']
+			);
+			?>
+			<div class="map-embed">
+				<iframe
+					src="https://www.google.com/maps?q=<?php echo rawurlencode( $mh_map_query ); ?>&output=embed"
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					title="<?php esc_attr_e( 'Merkez Hidrofor konum haritası', 'merkez-hidrofor-child' ); ?>"
+				></iframe>
+			</div>
 		</div>
 
 		<div>

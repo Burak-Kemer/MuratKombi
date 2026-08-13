@@ -71,6 +71,16 @@ return array(
 
 	'brands'       => array( 'Wilo', 'Alarko', 'Grundfos', 'DAB', 'Pedrollo', 'Ayvaz', 'Ebara' ),
 
+	// Real, client-provided Google Business Profile snapshot (verbally confirmed,
+	// matches the live GBP: "Merkez Isı - Hidrofor Pompa Servisi - Wilo Hidrofor
+	// Servisi"). A plain UI trust badge only — never written into schema.org
+	// Review/AggregateRating markup (that requires machine-verifiable review data,
+	// not a hand-typed summary). Update this manually if the GBP score/count changes.
+	'google_rating' => array(
+		'score' => '4.8',
+		'count' => '28',
+	),
+
 	// Structured (schema.org PostalAddress) fields, kept separate from the display
 	// address above. No postalCode: the client never provided one — never invent it.
 	'address_schema'     => array(

@@ -62,13 +62,28 @@ $mh_home_services = array(
 			<div class="hero__actions">
 				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="btn btn--danger">
 					<span class="btn__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( 'phone' ); ?></span>
-					<span><?php esc_html_e( 'Hemen Ara', 'merkez-hidrofor-child' ); ?></span>
+					<span><?php esc_html_e( '7/24 Servis Talep Et', 'merkez-hidrofor-child' ); ?></span>
 				</a>
 				<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" class="btn btn--secondary" target="_blank" rel="noopener">
 					<span class="btn__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( 'whatsapp' ); ?></span>
 					<span><?php esc_html_e( "WhatsApp'tan Ulaş", 'merkez-hidrofor-child' ); ?></span>
 				</a>
 			</div>
+
+			<?php if ( ! empty( $mh_business['google_rating'] ) ) : ?>
+				<div class="hero__trust-badge">
+					<span class="hero__trust-badge-score"><?php echo esc_html( $mh_business['google_rating']['score'] ); ?>/5</span>
+					<span class="hero__trust-badge-label">
+						<?php
+						printf(
+							/* translators: %s: Google review count */
+							esc_html__( 'Google\'da %s değerlendirme', 'merkez-hidrofor-child' ),
+							esc_html( $mh_business['google_rating']['count'] )
+						);
+						?>
+					</span>
+				</div>
+			<?php endif; ?>
 		</div>
 
 		<div class="hero__visual" aria-hidden="true">
