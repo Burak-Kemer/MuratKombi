@@ -1,0 +1,17 @@
+/*
+Theme Name: Merkez Hidrofor Child
+Theme URI: https://www.merkezhidrofor.com/
+Description: Merkez Hidrofor / Merkez Isı icin Avril temasinin child temasi. Tasarim MuratKombi statik sitesinden uyarlanmistir. Mevcut WordPress icerik/URL/SEO yapisini korur.
+Author: Atlas Game Studio
+Template: avril
+Version: 1.0.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: merkez-hidrofor-child
+
+This stylesheet intentionally has no rules of its own — real styles live in the
+modular files under assets/css/ (base/layout/components/pages), enqueued in order
+by functions.php. WordPress requires this file to exist with the header above for
+the theme to be recognized; the header block plus this comment is all it contains.
+*/

@@ -1,0 +1,108 @@
+/* Design tokens — single source of truth for the visual system.
+   Premium industrial-technical palette: deep charcoal, electric blue, restrained red for emergency actions only. */
+
+:root {
+  /* ---- Color: Premium Industrial Technical palette ---- */
+  --color-black: #0a0c10;
+  --color-charcoal: #12151b;
+  --color-charcoal-soft: #1a1e26;
+  --color-steel: #2a2f3a;
+  --color-steel-soft: #3a4150;
+
+  --color-blue: #2f7dfa;
+  --color-blue-soft: #5b9dff;
+  --color-blue-deep: #1857c4;
+
+  /* #d95252 (not the more saturated #d14343 it started as) — that shade only cleared
+     4.28:1 against black button text, just under the 4.5:1 AA minimum for normal-size
+     bold text. This gives 4.92:1, confirmed via Lighthouse on the sticky call button. */
+  --color-red: #d95252;
+  --color-red-soft: #e56a6a;
+  --color-red-deep: #a93131;
+
+  --color-ivory: #f4f6f9;
+  --color-ivory-dim: #9ca3b0;
+
+  /* Semantic aliases */
+  --color-bg: var(--color-black);
+  --color-surface: var(--color-charcoal);
+  --color-surface-raised: var(--color-charcoal-soft);
+  --color-text: var(--color-ivory);
+  --color-text-dim: var(--color-ivory-dim);
+  --color-accent: var(--color-blue);
+  --color-accent-hover: var(--color-blue-soft);
+  --color-danger: var(--color-red);
+  --color-danger-hover: var(--color-red-soft);
+  --color-border: rgb(244 246 249 / 10%);
+
+  /* ---- Typography ---- */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-body);
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, "Liberation Mono", Menlo, monospace;
+
+  --fs-sm: clamp(0.833rem, 0.8rem + 0.17vw, 0.95rem);
+  --fs-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-md: clamp(1.2rem, 1.13rem + 0.35vw, 1.5rem);
+  --fs-lg: clamp(1.6rem, 1.44rem + 0.8vw, 2.25rem);
+  --fs-xl: clamp(2.2rem, 1.85rem + 1.75vw, 3.75rem);
+  --fs-2xl: clamp(2.6rem, 2.05rem + 2.75vw, 4.75rem);
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.3;
+  --lh-normal: 1.6;
+
+  --ls-wide: 0.06em;
+  --ls-wider: 0.14em;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-12: 12rem;
+
+  /* ---- Layout ---- */
+  --container-max: 1280px;
+  --container-pad: var(--space-5);
+
+  /* ---- Radii & shadows ---- */
+  --radius-sm: 3px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 35%);
+  --shadow-md: 0 8px 30px rgb(0 0 0 / 45%);
+  --shadow-blue-glow: 0 0 0 1px rgb(47 125 250 / 40%), 0 8px 24px rgb(47 125 250 / 18%);
+  --shadow-red-glow: 0 0 0 1px rgb(209 67 67 / 45%), 0 8px 24px rgb(209 67 67 / 22%);
+
+  /* ---- Motion ---- */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.2s;
+  --duration-base: 0.4s;
+  --duration-slow: 0.7s;
+
+  /* ---- Z-index scale ----
+     .site-header sits above .nav__drawer (not below) even though the drawer is the
+     "overlay" — the header only occupies its own top strip, so this keeps the
+     hamburger/X toggle clickable while the drawer is open instead of being painted
+     over by the drawer's fixed, viewport-covering stacking context. */
+  --z-sticky-cta: 90;
+  --z-overlay: 200;
+  --z-nav: 210;
+  --z-modal: 300;
+}
+
+/* ---- Breakpoints (reference only — CSS custom properties can't be used in @media,
+   documented here so component files stay consistent) ----
+   sm: 600px
+   md: 900px
+   lg: 1200px
+   xl: 1440px
+*/

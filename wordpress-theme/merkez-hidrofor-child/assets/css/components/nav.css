@@ -1,0 +1,184 @@
+/* Site header / primary navigation — fixed, gains backdrop + shadow on scroll, mobile drawer.
+   NOTE: .nav__drawer must stay a sibling of .site-header in the DOM (not nested inside it) —
+   backdrop-filter on an ancestor creates a new containing block for position:fixed descendants,
+   which would break the drawer's full-viewport positioning once the header is in its scrolled state. */
+
+.site-header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-nav);
+  padding-block: var(--space-5);
+  border-bottom: 1px solid transparent;
+  transition: padding var(--duration-fast) var(--ease-premium),
+    background-color var(--duration-fast) var(--ease-premium),
+    backdrop-filter var(--duration-fast) var(--ease-premium),
+    border-color var(--duration-fast) var(--ease-premium);
+}
+
+.site-header.is-scrolled {
+  padding-block: var(--space-3);
+  background: rgb(10 12 16 / 85%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-color: var(--color-border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  letter-spacing: var(--ls-wide);
+  color: var(--color-text);
+  transition: opacity var(--duration-fast) var(--ease-premium);
+}
+
+.nav__logo:hover {
+  opacity: 0.85;
+}
+
+.nav__logo-mark {
+  flex-shrink: 0;
+}
+
+.nav__logo strong {
+  color: var(--color-accent);
+}
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.nav__link {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  position: relative;
+  padding-block: var(--space-1);
+  transition: color var(--duration-fast) var(--ease-premium);
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-fast) var(--ease-premium);
+}
+
+.nav__link:hover,
+.nav__link[aria-current="page"] {
+  color: var(--color-text);
+}
+
+.nav__link:hover::after,
+.nav__link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav__actions .btn {
+  display: none;
+}
+
+.nav__toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+}
+
+.nav__toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: var(--radius-pill);
+  transition: transform var(--duration-fast) var(--ease-premium),
+    opacity var(--duration-fast) var(--ease-premium);
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav__drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--color-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  transform: translateY(-100%);
+  transition: transform var(--duration-base) var(--ease-premium);
+}
+
+.nav__drawer.is-open {
+  transform: translateY(0);
+}
+
+.nav__drawer .nav__link {
+  font-size: var(--fs-lg);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.nav__drawer .btn {
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .nav__links {
+    display: flex;
+  }
+
+  .nav__actions .btn {
+    display: inline-flex;
+  }
+
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__drawer {
+    display: none;
+  }
+}

@@ -1,0 +1,40 @@
+/* Process steps — numbered technical-service journey, horizontal on desktop, stacked on mobile. */
+
+.process {
+  display: grid;
+  gap: var(--space-6);
+  counter-reset: process;
+}
+
+@media (min-width: 900px) {
+  .process {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+.process__step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.process__number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.process__title {
+  font-size: var(--fs-base);
+  font-weight: 700;
+}
+
+.process__desc {
+  color: var(--color-text-dim);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+}

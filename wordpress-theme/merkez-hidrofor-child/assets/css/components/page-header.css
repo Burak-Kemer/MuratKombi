@@ -1,0 +1,21 @@
+/* Page header — compact intro band for non-home pages, sits right below the fixed nav. */
+
+.page-header {
+  position: relative;
+  padding-top: clamp(7.5rem, 6rem + 5vw, 10rem);
+  padding-bottom: var(--space-8);
+  background: radial-gradient(120% 100% at 15% 0%, var(--color-charcoal-soft) 0%, var(--color-black) 60%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.page-header__title {
+  margin-top: var(--space-4);
+  max-width: 34rem;
+}
+
+.page-header__lede {
+  margin-top: var(--space-4);
+  max-width: 48ch;
+  color: var(--color-text-dim);
+  font-size: var(--fs-md);
+}

@@ -1,0 +1,104 @@
+/* Entry content — typography wrapper for arbitrary WordPress the_content() output
+   (existing pages/posts, including old demo/Lorem Ipsum text). Also covers the
+   archive/search results list and the core search form, since all three render
+   WP-generated markup this theme doesn't fully control the structure of. */
+
+.entry-content {
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.entry-content p {
+  color: var(--color-text-dim);
+}
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 {
+  margin-top: var(--space-4);
+}
+
+.entry-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.entry-content ul,
+.entry-content ol {
+  padding-left: 1.25rem;
+  list-style: revert;
+  color: var(--color-text-dim);
+}
+
+.entry-content img {
+  border-radius: var(--radius-md);
+}
+
+.entry-content__pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Archive / search results list */
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 48rem;
+}
+
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.archive-card__title a {
+  color: var(--color-text);
+}
+
+.archive-card__title a:hover {
+  color: var(--color-accent);
+}
+
+.archive-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+}
+
+.archive-card__excerpt {
+  color: var(--color-text-dim);
+  font-size: var(--fs-sm);
+}
+
+/* Core search form */
+.search-form {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 32rem;
+  margin-bottom: var(--space-7);
+}
+
+.search-form__input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+}
+
+.search-form__input:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.search-no-results {
+  color: var(--color-text-dim);
+}
