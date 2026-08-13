@@ -26,7 +26,7 @@ $mh_whatsapp = $mh_business['whatsapp'];
 			</div>
 
 			<div>
-				<p class="footer__heading"><?php esc_html_e( 'Sayfalar', 'merkez-hidrofor-child' ); ?></p>
+				<h3 class="footer__heading"><?php esc_html_e( 'Sayfalar', 'merkez-hidrofor-child' ); ?></h3>
 				<?php if ( has_nav_menu( 'footer' ) ) : ?>
 					<?php
 					wp_nav_menu(
@@ -54,7 +54,7 @@ $mh_whatsapp = $mh_business['whatsapp'];
 			</div>
 
 			<div>
-				<p class="footer__heading"><?php esc_html_e( 'İletişim', 'merkez-hidrofor-child' ); ?></p>
+				<h3 class="footer__heading"><?php esc_html_e( 'İletişim', 'merkez-hidrofor-child' ); ?></h3>
 				<div class="footer__list">
 					<a href="<?php echo esc_url( $mh_call['href'] ); ?>"><?php echo esc_html( $mh_call['label'] ); ?></a>
 					<?php foreach ( $mh_business['phones'] as $mh_phone ) : ?>
@@ -70,6 +70,13 @@ $mh_whatsapp = $mh_business['whatsapp'];
 					</span>
 				</div>
 			</div>
+		</div>
+
+		<div class="footer__districts">
+			<h3 class="footer__heading"><?php esc_html_e( 'Hizmet Bölgelerimiz', 'merkez-hidrofor-child' ); ?></h3>
+			<p class="footer__districts-list">
+				<?php echo esc_html( implode( ', ', $mh_business['service_districts'] ) ); ?>
+			</p>
 		</div>
 
 		<div class="footer__bottom">

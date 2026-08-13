@@ -102,3 +102,85 @@
 .search-no-results {
   color: var(--color-text-dim);
 }
+
+/* Pill/tag list — used site-wide for service/brand/district lists (front-page.php,
+   template-hakkimizda.php, template-ilce-servisi.php, template-iletisim.php). Moved
+   here from pages/contact.css because it isn't actually contact-page-specific and
+   pages/contact.css only loads conditionally on template-iletisim.php. */
+.contact-services {
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-services__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.contact-services__list li {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+}
+
+/* Breadcrumbs (Yoast-rendered, this theme only supplies the wrapper's spacing) */
+.breadcrumbs {
+  padding-top: clamp(6rem, 5rem + 3vw, 7.5rem);
+  padding-bottom: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+}
+
+.breadcrumbs a {
+  color: var(--color-text-dim);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent);
+}
+
+/* Related services — internal-linking block used on page.php/single.php and the
+   homepage service grid. */
+.related-services {
+  max-width: 48rem;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.related-services__heading {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.related-services__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.related-services__list a {
+  display: inline-flex;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-premium),
+    color var(--duration-fast) var(--ease-premium);
+}
+
+.related-services__list a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}

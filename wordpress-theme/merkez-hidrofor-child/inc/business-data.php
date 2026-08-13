@@ -70,4 +70,34 @@ return array(
 	),
 
 	'brands'       => array( 'Wilo', 'Alarko', 'Grundfos', 'DAB', 'Pedrollo', 'Ayvaz', 'Ebara' ),
+
+	// Structured (schema.org PostalAddress) fields, kept separate from the display
+	// address above. No postalCode: the client never provided one — never invent it.
+	'address_schema'     => array(
+		'streetAddress'   => 'Yenibosna Merkez Mahallesi, Yıldıztepe Sokak No: 8',
+		'addressLocality' => 'Bahçelievler',
+		'addressRegion'   => 'İstanbul',
+		'addressCountry'  => 'TR',
+	),
+
+	// Confirmed existing district service page slugs (matches the live site's
+	// already-indexed URLs — verified during the earlier read-only site analysis,
+	// not invented). Used for areaServed schema and for internal-linking blocks.
+	'service_districts'  => array(
+		'Bahçelievler', 'Avcılar', 'Bağcılar', 'Başakşehir', 'Bayrampaşa', 'Beşiktaş',
+		'Beylikdüzü', 'Silivri', 'Çatalca', 'Beyoğlu', 'Esenyurt', 'Fatih',
+		'Gaziosmanpaşa', 'Kağıthane', 'Küçükçekmece', 'Sarıyer', 'Sultangazi', 'Şişli',
+		'Esenler', 'Arnavutköy', 'Büyükçekmece', 'Bakırköy', 'Eyüp', 'Güngören',
+	),
+
+	// Known-stable core service page slugs (URL protection requirement — these must
+	// never change). Used to build safe internal links via get_page_by_path(); if a
+	// slug doesn't resolve to a real page, the link helper omits it rather than
+	// pointing at a 404.
+	'core_service_pages' => array(
+		'hidrofor-servisi'       => 'Hidrofor Servisi',
+		'wilo-servisi'           => 'Wilo Servisi',
+		'hidrofor-pompa-servisi' => 'Hidrofor Pompa Servisi',
+		'dalgic-pompa-tamiri'    => 'Dalgıç Pompa Tamiri',
+	),
 );

@@ -19,6 +19,8 @@ $mh_call     = $mh_business['primary_call'];
 $mh_whatsapp = $mh_business['whatsapp'];
 ?>
 
+<?php merkez_hidrofor_breadcrumbs(); ?>
+
 <?php while ( have_posts() ) : ?>
 	<?php the_post(); ?>
 
@@ -42,6 +44,8 @@ $mh_whatsapp = $mh_business['whatsapp'];
 			);
 			?>
 		</div>
+
+		<?php merkez_hidrofor_related_services( get_post_field( 'post_name' ) ); ?>
 	</section>
 <?php endwhile; ?>
 
@@ -55,6 +59,12 @@ $mh_whatsapp = $mh_business['whatsapp'];
 					<?php merkez_hidrofor_the_icon( 'phone' ); ?>
 					<?php echo esc_html( $mh_call['label'] ); ?>
 				</a>
+				<?php foreach ( $mh_business['phones'] as $mh_phone ) : ?>
+					<a href="<?php echo esc_url( $mh_phone['href'] ); ?>" class="cta-band__phone">
+						<?php merkez_hidrofor_the_icon( 'phone' ); ?>
+						<?php echo esc_html( $mh_phone['label'] ); ?>
+					</a>
+				<?php endforeach; ?>
 			</div>
 			<div class="cta-band__actions">
 				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="btn btn--danger"><?php esc_html_e( 'Hemen Ara', 'merkez-hidrofor-child' ); ?></a>

@@ -21,21 +21,25 @@ $mh_home_services = array(
 		'icon'  => 'hidrofor',
 		'title' => 'Hidrofor Servisi',
 		'desc'  => 'Hidrofor arıza tespiti, bakım ve kurulum desteği sağlıyoruz.',
+		'slug'  => 'hidrofor-servisi',
 	),
 	array(
 		'icon'  => 'dalgic',
 		'title' => 'Pompa Servisi',
 		'desc'  => 'Pompa bakım ve onarımında yerinde teknik destek veriyoruz.',
+		'slug'  => 'hidrofor-pompa-servisi',
 	),
 	array(
 		'icon'  => 'kazan',
 		'title' => 'Kazan Servisi',
 		'desc'  => 'Kazan sistemlerinde teknik inceleme ve bakım hizmeti sunuyoruz.',
+		'slug'  => null,
 	),
 	array(
 		'icon'  => 'kombi',
 		'title' => 'Kombi Servisi',
 		'desc'  => 'Kombi arıza tespiti, bakım ve onarım desteği için bize ulaşın.',
+		'slug'  => null,
 	),
 );
 ?>
@@ -104,13 +108,28 @@ $mh_home_services = array(
 	</div>
 	<div class="grid grid--4">
 		<?php foreach ( $mh_home_services as $mh_service ) : ?>
-			<div class="service-card" data-reveal>
-				<span class="service-card__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( $mh_service['icon'] ); ?></span>
-				<h3 class="service-card__title"><?php echo esc_html( $mh_service['title'] ); ?></h3>
-				<p class="service-card__desc"><?php echo esc_html( $mh_service['desc'] ); ?></p>
-			</div>
+			<?php $mh_service_url = $mh_service['slug'] ? merkez_hidrofor_page_url( $mh_service['slug'] ) : null; ?>
+			<?php if ( $mh_service_url ) : ?>
+				<a href="<?php echo esc_url( $mh_service_url ); ?>" class="service-card" data-reveal>
+					<span class="service-card__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( $mh_service['icon'] ); ?></span>
+					<h3 class="service-card__title"><?php echo esc_html( $mh_service['title'] ); ?></h3>
+					<p class="service-card__desc"><?php echo esc_html( $mh_service['desc'] ); ?></p>
+					<span class="service-card__link">
+						<?php esc_html_e( 'Detaylı Bilgi', 'merkez-hidrofor-child' ); ?>
+						<?php merkez_hidrofor_the_icon( 'arrow' ); ?>
+					</span>
+				</a>
+			<?php else : ?>
+				<div class="service-card" data-reveal>
+					<span class="service-card__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( $mh_service['icon'] ); ?></span>
+					<h3 class="service-card__title"><?php echo esc_html( $mh_service['title'] ); ?></h3>
+					<p class="service-card__desc"><?php echo esc_html( $mh_service['desc'] ); ?></p>
+				</div>
+			<?php endif; ?>
 		<?php endforeach; ?>
 	</div>
+
+	<?php merkez_hidrofor_related_services(); ?>
 
 	<div class="contact-services" data-reveal style="margin-top: var(--space-8); border-top: none; padding-top: 0;">
 		<p class="eyebrow"><?php esc_html_e( 'Tüm Hizmet Alanlarımız', 'merkez-hidrofor-child' ); ?></p>

@@ -67,22 +67,6 @@
   color: var(--color-text);
 }
 
-.contact-services {
-  padding-top: var(--space-7);
-  border-top: 1px solid var(--color-border);
-}
-
-.contact-services__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-4);
-}
-
-.contact-services__list li {
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  font-size: var(--fs-sm);
-  color: var(--color-text-dim);
-}
+/* .contact-services / .contact-services__list moved to components/entry-content.css —
+   used site-wide (front-page.php, template-hakkimizda.php, template-ilce-servisi.php),
+   not just on this contact-only stylesheet, which only loads on template-iletisim.php. */

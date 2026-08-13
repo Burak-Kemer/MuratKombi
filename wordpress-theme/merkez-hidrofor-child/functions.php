@@ -16,6 +16,7 @@ define( 'MERKEZ_HIDROFOR_URI', get_stylesheet_directory_uri() );
 define( 'MERKEZ_HIDROFOR_MENU_LOCATION', 'primary_menu' );
 
 require_once MERKEZ_HIDROFOR_DIR . '/inc/icons.php';
+require_once MERKEZ_HIDROFOR_DIR . '/inc/seo.php';
 
 /**
  * Central business/contact data (see inc/business-data.php).
@@ -109,12 +110,10 @@ function merkez_hidrofor_assets() {
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'mh-page-home', MERKEZ_HIDROFOR_URI . '/assets/css/pages/home.css', array( $prev ), $ver );
 		$prev = 'mh-page-home';
+	} elseif ( is_page_template( 'template-iletisim.php' ) ) {
+		wp_enqueue_style( 'mh-page-contact', MERKEZ_HIDROFOR_URI . '/assets/css/pages/contact.css', array( $prev ), $ver );
+		$prev = 'mh-page-contact';
 	}
-
-	// pages/services.css and pages/contact.css are carried over from the static site
-	// for design-system completeness (see assets/css/pages/) but are not enqueued by
-	// any current template — page.php stays intentionally generic across all ~30
-	// existing pages rather than special-casing specific slugs/templates.
 
 	// Required theme identity stylesheet (WP header block) loads last.
 	wp_enqueue_style( 'merkez-hidrofor-style', get_stylesheet_uri(), array( $prev ), $ver );
