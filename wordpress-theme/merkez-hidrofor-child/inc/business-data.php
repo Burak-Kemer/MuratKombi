@@ -1,12 +1,14 @@
 <?php
 /**
- * Single source of truth for Merkez Hidrofor / Merkez Isı business data.
+ * Static catalog data for Merkez Isı Teknik Servis (services/brands/districts/
+ * known page slugs/Google rating) — the parts that don't change often and aren't
+ * exposed as Customizer fields.
  *
- * Update phone numbers, address, hours, etc. ONLY here. header.php, footer.php,
- * front-page.php and page.php all read from this file via merkez_hidrofor_business()
- * (see functions.php) — nothing else in the theme hardcodes contact details.
- *
- * 'email' stays null until the client provides a real address — never invent one.
+ * Contact/identity fields that DO change (name, phones, address, hours, founded,
+ * experience, service_area) moved to inc/customizer.php as of the 2026-08-15 P0
+ * reconciliation — see merkez_hidrofor_business() in functions.php, which merges
+ * this static array with merkez_hidrofor_customizer_data()'s Customizer-backed one.
+ * Update phone numbers/address/hours in wp-admin → Customize, not here.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,47 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'         => 'Merkez Hidrofor',
-	'legal_name'   => 'Merkez Hidrofor / Merkez Isı',
-	'founded'      => '2001',
-	'experience'   => '25 yılı aşkın',
-	'service_area' => 'İstanbul Avrupa Yakası',
-	'hours'        => '7/24',
-
-	'address'      => array(
-		'line1' => 'Yenibosna Merkez Mahallesi',
-		'line2' => 'Yıldıztepe Sokak No: 8',
-		'line3' => 'Bahçelievler / İstanbul',
-	),
-
-	'email'        => null,
-
-	'whatsapp'     => array(
-		'label' => '0539 881 58 92',
-		'href'  => 'https://wa.me/905398815892',
-	),
-
-	// Same number as WhatsApp (it's a real mobile line) — used for the primary
-	// "Hemen Ara" call CTA in nav/hero/sticky-cta, mirroring how the original
-	// static design used one mobile number for both call and WhatsApp actions.
-	'primary_call' => array(
-		'label' => '0539 881 58 92',
-		'href'  => 'tel:+905398815892',
-	),
-
-	'phones'       => array(
-		array( 'label' => '0212 630 58 92', 'href' => 'tel:+902126305892' ),
-		array( 'label' => '0212 630 29 00', 'href' => 'tel:+902126302900' ),
-		array( 'label' => '0212 639 06 43', 'href' => 'tel:+902126390643' ),
-	),
-
+	// P0-3 (2026-08-15): Otomasyon is a confirmed new service — listed as "Otomasyon
+	// Servisi" like the other named services, no fabricated technical detail (PLC
+	// brand, control panel model, etc) added anywhere for it.
+	// P0-4 (2026-08-15): Beyaz Eşya Servisi removed — not yet confirmed as an active
+	// service; do not re-add without explicit confirmation from the business owner.
 	'services'     => array(
 		'Hidrofor Servisi',
 		'Pompa Servisi',
 		'Kazan Servisi',
 		'Brülör Servisi',
 		'Kombi Servisi',
-		'Beyaz Eşya Servisi',
 		'Wilo Servisi',
 		'Wilo Hidrofor Servisi',
 		'Hidrofor Pompa Servisi',
@@ -66,7 +38,7 @@ return array(
 		'Basınç Şalteri',
 		'Genleşme Tankı',
 		'Kontrol Panosu',
-		'Otomasyon',
+		'Otomasyon Servisi',
 	),
 
 	'brands'       => array( 'Wilo', 'Alarko', 'Grundfos', 'DAB', 'Pedrollo', 'Ayvaz', 'Ebara' ),
@@ -81,23 +53,19 @@ return array(
 		'count' => '28',
 	),
 
-	// Structured (schema.org PostalAddress) fields, kept separate from the display
-	// address above. No postalCode: the client never provided one — never invent it.
-	'address_schema'     => array(
-		'streetAddress'   => 'Yenibosna Merkez Mahallesi, Yıldıztepe Sokak No: 8',
-		'addressLocality' => 'Bahçelievler',
-		'addressRegion'   => 'İstanbul',
-		'addressCountry'  => 'TR',
-	),
-
-	// Confirmed existing district service page slugs (matches the live site's
-	// already-indexed URLs — verified during the earlier read-only site analysis,
-	// not invented). Used for areaServed schema and for internal-linking blocks.
+	// İstanbul Avrupa Yakası only, per the 2026-08-15 P0 source-of-truth's exact
+	// 23-district list (MURAT-KOMBI-SITE-AUDIT.md P0.6/P0.7) — this supersedes the
+	// prior list, which was drawn from the old site's already-indexed pages as found
+	// during the initial (pre-P0) site audit and included Silivri/Çatalca (outside
+	// today's confirmed scope) while missing Zeytinburnu and using "Eyüp" instead of
+	// the current official "Eyüpsultan". Used for areaServed schema and
+	// internal-linking/footer district mentions — NOT for auto-generating new
+	// per-district pages (see template-ilce-servisi.php's doorway-content-risk note).
 	'service_districts'  => array(
-		'Bahçelievler', 'Avcılar', 'Bağcılar', 'Başakşehir', 'Bayrampaşa', 'Beşiktaş',
-		'Beylikdüzü', 'Silivri', 'Çatalca', 'Beyoğlu', 'Esenyurt', 'Fatih',
-		'Gaziosmanpaşa', 'Kağıthane', 'Küçükçekmece', 'Sarıyer', 'Sultangazi', 'Şişli',
-		'Esenler', 'Arnavutköy', 'Büyükçekmece', 'Bakırköy', 'Eyüp', 'Güngören',
+		'Bahçelievler', 'Bakırköy', 'Bağcılar', 'Güngören', 'Esenler', 'Başakşehir',
+		'Küçükçekmece', 'Avcılar', 'Beylikdüzü', 'Büyükçekmece', 'Zeytinburnu',
+		'Bayrampaşa', 'Fatih', 'Eyüpsultan', 'Kağıthane', 'Şişli', 'Beşiktaş',
+		'Sarıyer', 'Beyoğlu', 'Gaziosmanpaşa', 'Sultangazi', 'Arnavutköy', 'Esenyurt',
 	),
 
 	// Known-stable core service page slugs (URL protection requirement — these must
@@ -109,5 +77,6 @@ return array(
 		'wilo-servisi'           => 'Wilo Servisi',
 		'hidrofor-pompa-servisi' => 'Hidrofor Pompa Servisi',
 		'dalgic-pompa-tamiri'    => 'Dalgıç Pompa Tamiri',
+		'otomasyon-servisi'      => 'Otomasyon Servisi',
 	),
 );

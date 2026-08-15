@@ -1,6 +1,8 @@
 <?php
 /**
- * Merkez Hidrofor child theme functions.
+ * Merkez Isı Teknik Servis child theme functions (folder/text-domain/function
+ * prefix stay "merkez-hidrofor-child" / merkez_hidrofor_* for codebase
+ * continuity — see style.css header for the user-visible brand name note).
  *
  * Parent theme: Avril (untouched — this file only adds child-theme behavior on top).
  * PHP 7.4 compatible: no union types, no arrow-fn-only patterns beyond 7.4, no named args.
@@ -16,10 +18,14 @@ define( 'MERKEZ_HIDROFOR_URI', get_stylesheet_directory_uri() );
 define( 'MERKEZ_HIDROFOR_MENU_LOCATION', 'primary_menu' );
 
 require_once MERKEZ_HIDROFOR_DIR . '/inc/icons.php';
+require_once MERKEZ_HIDROFOR_DIR . '/inc/customizer.php';
 require_once MERKEZ_HIDROFOR_DIR . '/inc/seo.php';
 
 /**
- * Central business/contact data (see inc/business-data.php).
+ * Central business/contact data: the static catalog (services/brands/districts/
+ * core_service_pages/google_rating — see inc/business-data.php) merged with the
+ * Customizer-backed contact fields (name/phones/address/hours/founded/experience/
+ * service_area — see inc/customizer.php's merkez_hidrofor_customizer_data()).
  * Loaded once and cached in a static var for the rest of the request.
  *
  * @return array
@@ -27,7 +33,9 @@ require_once MERKEZ_HIDROFOR_DIR . '/inc/seo.php';
 function merkez_hidrofor_business() {
 	static $data = null;
 	if ( null === $data ) {
-		$data = require MERKEZ_HIDROFOR_DIR . '/inc/business-data.php';
+		$static  = require MERKEZ_HIDROFOR_DIR . '/inc/business-data.php';
+		$dynamic = merkez_hidrofor_customizer_data();
+		$data    = array_merge( $static, $dynamic );
 	}
 	return $data;
 }

@@ -18,7 +18,7 @@ $mh_whatsapp = $mh_business['whatsapp'];
 	<div class="container">
 		<div class="footer__grid">
 			<div class="footer__brand">
-				<span class="footer__logo">Merkez <strong><?php esc_html_e( 'Hidrofor', 'merkez-hidrofor-child' ); ?></strong></span>
+					<span class="footer__logo">Merkez <strong><?php esc_html_e( 'Isı', 'merkez-hidrofor-child' ); ?></strong> Teknik Servis</span>
 				<p class="footer__tagline">
 					<?php echo esc_html( $mh_business['legal_name'] ); ?> —
 					<?php echo esc_html( $mh_business['service_area'] ); ?>, <?php echo esc_html( $mh_business['hours'] ); ?> <?php esc_html_e( 'hizmet', 'merkez-hidrofor-child' ); ?>.
@@ -89,11 +89,11 @@ $mh_whatsapp = $mh_business['whatsapp'];
 <nav class="sticky-cta" aria-label="<?php esc_attr_e( 'Hızlı iletişim', 'merkez-hidrofor-child' ); ?>">
 	<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="sticky-cta__link sticky-cta__link--call">
 		<?php merkez_hidrofor_the_icon( 'phone' ); ?>
-		<?php esc_html_e( 'Ara', 'merkez-hidrofor-child' ); ?>
+		<?php esc_html_e( 'ŞİMDİ ARA', 'merkez-hidrofor-child' ); ?>
 	</a>
 	<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" class="sticky-cta__link sticky-cta__link--whatsapp" target="_blank" rel="noopener">
 		<?php merkez_hidrofor_the_icon( 'whatsapp' ); ?>
-		WhatsApp
+		WHATSAPP
 	</a>
 </nav>
 

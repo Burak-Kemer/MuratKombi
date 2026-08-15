@@ -31,7 +31,7 @@ $mh_call     = $mh_business['primary_call'];
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
 				<?php merkez_hidrofor_the_icon( 'logo-mark' ); ?>
-				Merkez <strong><?php esc_html_e( 'Hidrofor', 'merkez-hidrofor-child' ); ?></strong>
+				Merkez <strong><?php esc_html_e( 'Isı', 'merkez-hidrofor-child' ); ?></strong> Teknik Servis
 			<?php endif; ?>
 		</a>
 

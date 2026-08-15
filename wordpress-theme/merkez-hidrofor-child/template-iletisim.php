@@ -3,8 +3,9 @@
  * Template Name: İletişim
  *
  * Optional template for the existing /iletisim-05398815892/ page. SEO intent:
- * "Merkez Hidrofor İletişim / 7/24 Servis". All contact panels read from
- * inc/business-data.php (single source of truth) — no hardcoded numbers here.
+ * "Merkez Isı Teknik Servis İletişim / 7/24 Servis". All contact panels read from
+ * inc/business-data.php + inc/customizer.php (single source of truth) — no
+ * hardcoded numbers here.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +76,7 @@ merkez_hidrofor_breadcrumbs();
 					src="https://www.google.com/maps?q=<?php echo rawurlencode( $mh_map_query ); ?>&output=embed"
 					loading="lazy"
 					referrerpolicy="no-referrer-when-downgrade"
-					title="<?php esc_attr_e( 'Merkez Hidrofor konum haritası', 'merkez-hidrofor-child' ); ?>"
+					title="<?php esc_attr_e( 'Merkez Isı Teknik Servis konum haritası', 'merkez-hidrofor-child' ); ?>"
 				></iframe>
 			</div>
 		</div>

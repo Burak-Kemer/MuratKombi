@@ -41,6 +41,18 @@ $mh_home_services = array(
 		'desc'  => 'Kombi arıza tespiti, bakım ve onarım desteği için bize ulaşın.',
 		'slug'  => null,
 	),
+	array(
+		'icon'  => 'dalgic',
+		'title' => 'Dalgıç Motorları',
+		'desc'  => 'Dalgıç motor arıza tespiti ve teknik servis desteği veriyoruz.',
+		'slug'  => 'dalgic-pompa-tamiri',
+	),
+	array(
+		'icon'  => 'otomasyon',
+		'title' => 'Otomasyon Servisi',
+		'desc'  => 'Isıtma ve su sistemlerinde otomasyon kontrolü için teknik destek sağlıyoruz.',
+		'slug'  => 'otomasyon-servisi',
+	),
 );
 ?>
 
@@ -53,11 +65,11 @@ $mh_home_services = array(
 
 	<div class="container hero__grid">
 		<div class="hero__text">
-			<p class="eyebrow"><?php echo esc_html( $mh_business['name'] ); ?> · <?php echo esc_html( $mh_business['founded'] ); ?>'den Beri Teknik Servis</p>
-			<h1 class="hero__title">Hidrofor, Pompa ve Isıtma Sistemlerinde Güvenilir Teknik Çözüm.</h1>
+			<p class="eyebrow"><?php echo esc_html( $mh_business['service_area'] ); ?> · <?php echo esc_html( $mh_business['hours'] ); ?> Teknik Servis</p>
+			<h1 class="hero__title"><?php echo esc_html( $mh_business['name'] ); ?></h1>
 			<p class="hero__lede">
 				<?php echo esc_html( $mh_business['service_area'] ); ?>'nda <?php echo esc_html( $mh_business['experience'] ); ?> tecrübeyle,
-				<?php echo esc_html( $mh_business['hours'] ); ?> hidrofor, pompa, kazan, brülör ve kombi teknik servisi.
+				<?php echo esc_html( $mh_business['hours'] ); ?> hidrofor, pompa, kazan, brülör, kombi ve otomasyon teknik servisi.
 			</p>
 			<div class="hero__actions">
 				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="btn btn--danger">
@@ -119,9 +131,9 @@ $mh_home_services = array(
 	<div class="section-head section-head--center" data-reveal>
 		<p class="eyebrow"><?php esc_html_e( 'Hizmetlerimiz', 'merkez-hidrofor-child' ); ?></p>
 		<h2><?php esc_html_e( 'Nerede Yardımcı Oluyoruz', 'merkez-hidrofor-child' ); ?></h2>
-		<p class="section-head__lede"><?php echo esc_html( $mh_business['service_area'] ); ?>'nda hidrofor, pompa, ısıtma ve beyaz eşya sistemlerinde teknik destek sağlıyoruz.</p>
+		<p class="section-head__lede"><?php echo esc_html( $mh_business['service_area'] ); ?>'nda hidrofor, pompa, ısıtma ve otomasyon sistemlerinde teknik destek sağlıyoruz.</p>
 	</div>
-	<div class="grid grid--4">
+	<div class="grid grid--3">
 		<?php foreach ( $mh_home_services as $mh_service ) : ?>
 			<?php $mh_service_url = $mh_service['slug'] ? merkez_hidrofor_page_url( $mh_service['slug'] ) : null; ?>
 			<?php if ( $mh_service_url ) : ?>
