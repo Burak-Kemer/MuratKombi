@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Murat Kombi | Kombi, Kazan, Hidrofor ve Dalgıç Motoru Teknik Servisi</title>
-  <meta name="description" content="Murat Kombi; kombi, kazan, hidrofor ve dalgıç motorlarında teknik servis, bakım ve onarım desteği sunar. Hemen arayın veya WhatsApp'tan ulaşın." />
-  <!-- TODO: replace with the real domain once registered/confirmed by the client -->
+  <title>Merkez Isı Teknik Servis | Kombi, Kazan, Hidrofor, Dalgıç Motoru, Otomasyon</title>
+  <meta name="description" content="Merkez Isı Teknik Servis; kombi, kazan, hidrofor, dalgıç motoru ve otomasyon alanlarında İstanbul Avrupa Yakası'nda 7/24 teknik servis sunar. Hemen arayın veya WhatsApp'tan yazın." />
+  <!-- TODO: canonical will become https://www.merkezhidrofor.com/ once this design ships through the
+       WordPress child theme on the live domain. This static repo is a design reference / GitHub Pages
+       demo, not the production deployment, so it intentionally keeps a placeholder canonical for now. -->
   <link rel="canonical" href="https://example.com/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Murat Kombi | Kombi, Kazan, Hidrofor ve Dalgıç Motoru Teknik Servisi" />
-  <meta property="og:description" content="Kombi, kazan, hidrofor ve dalgıç motorlarında teknik servis, bakım ve onarım desteği." />
+  <meta property="og:title" content="Merkez Isı Teknik Servis | Kombi, Kazan, Hidrofor, Dalgıç Motoru, Otomasyon" />
+  <meta property="og:description" content="Kombi, kazan, hidrofor, dalgıç motoru ve otomasyon alanlarında İstanbul Avrupa Yakası'nda 7/24 teknik servis, bakım ve onarım desteği." />
   <meta property="og:url" content="https://example.com/" />
   <meta property="og:locale" content="tr_TR" />
   <meta name="twitter:card" content="summary" />
@@ -34,19 +36,59 @@
   <link rel="stylesheet" href="assets/css/components/sticky-cta.css" />
   <link rel="stylesheet" href="assets/css/pages/home.css" />
 
-  <!-- Verified fields only: name, telephone, service list. No address/hours/certifications invented. -->
+  <!-- Verified fields only (P0 source of truth, 2026-08-15): name, telephones, address, hours,
+       founding date, service area, service list. No fabricated stats, reviews or certifications. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HVACBusiness",
-    "name": "Murat Kombi",
-    "telephone": ["+905398815892", "+902126306265"],
-    "areaServed": "TR",
+    "name": "Merkez Isı Teknik Servis",
+    "telephone": ["+905398815892", "+902126305892", "+902126302900", "+902126390643"],
+    "foundingDate": "2001",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Yıldıztepe Sokak No: 8",
+      "addressLocality": "Bahçelievler",
+      "addressRegion": "İstanbul",
+      "addressCountry": "TR"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Bahçelievler" },
+      { "@type": "City", "name": "Bakırköy" },
+      { "@type": "City", "name": "Bağcılar" },
+      { "@type": "City", "name": "Güngören" },
+      { "@type": "City", "name": "Esenler" },
+      { "@type": "City", "name": "Başakşehir" },
+      { "@type": "City", "name": "Küçükçekmece" },
+      { "@type": "City", "name": "Avcılar" },
+      { "@type": "City", "name": "Beylikdüzü" },
+      { "@type": "City", "name": "Büyükçekmece" },
+      { "@type": "City", "name": "Zeytinburnu" },
+      { "@type": "City", "name": "Bayrampaşa" },
+      { "@type": "City", "name": "Fatih" },
+      { "@type": "City", "name": "Eyüpsultan" },
+      { "@type": "City", "name": "Kağıthane" },
+      { "@type": "City", "name": "Şişli" },
+      { "@type": "City", "name": "Beşiktaş" },
+      { "@type": "City", "name": "Sarıyer" },
+      { "@type": "City", "name": "Beyoğlu" },
+      { "@type": "City", "name": "Gaziosmanpaşa" },
+      { "@type": "City", "name": "Sultangazi" },
+      { "@type": "City", "name": "Arnavutköy" },
+      { "@type": "City", "name": "Esenyurt" }
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
     "makesOffer": [
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kombi Servisi" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kazan Sistemleri" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hidrofor Sistemleri" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dalgıç Motorları" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dalgıç Motorları" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Otomasyon Servisi" } }
     ]
   }
   </script>
@@ -62,7 +104,7 @@
           <circle cx="12" cy="12" r="1.4" fill="var(--color-accent)" />
           <path d="M12 12 L16.2 8.2" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" />
         </svg>
-        Murat <strong>Kombi</strong>
+        Merkez <strong>Isı</strong> Teknik Servis
       </a>
 
       <nav class="nav__links" aria-label="Ana menü">
@@ -73,7 +115,7 @@
       </nav>
 
       <div class="nav__actions">
-        <a href="tel:+905398815892" class="btn btn--danger nav__cta" data-contact="phone-mobile">HEMEN ARA</a>
+        <a href="tel:+905398815892" class="btn btn--danger nav__cta" data-contact="phone-mobile">ŞİMDİ ARA</a>
         <button type="button" class="nav__toggle" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobile-drawer">
           <span></span><span></span><span></span>
         </button>
@@ -86,7 +128,7 @@
     <a href="hizmetler.html" class="nav__link">Hizmetler</a>
     <a href="hakkimizda.html" class="nav__link">Hakkımızda</a>
     <a href="iletisim.html" class="nav__link">İletişim</a>
-    <a href="tel:+905398815892" class="btn btn--danger" data-contact="phone-mobile">HEMEN ARA</a>
+    <a href="tel:+905398815892" class="btn btn--danger" data-contact="phone-mobile">ŞİMDİ ARA</a>
   </nav>
 
   <main id="main">
@@ -99,23 +141,23 @@
 
       <div class="container hero__grid">
         <div class="hero__text">
-          <p class="eyebrow">Murat Kombi · Teknik Servis</p>
-          <h1 class="hero__title">Isınma ve Su Sistemlerinde Güvenilir Teknik Çözüm.</h1>
+          <p class="eyebrow">İstanbul Avrupa Yakası · 7/24 Teknik Servis</p>
+          <h1 class="hero__title">Merkez Isı Teknik Servis</h1>
           <p class="hero__lede">
-            Kombi, kazan, hidrofor ve dalgıç motorlarında teknik servis, bakım ve onarım desteği.
+            Kombi, kazan, hidrofor, dalgıç motorları ve otomasyon hizmetlerinde 7/24 teknik servis.
           </p>
           <div class="hero__actions">
             <a href="tel:+905398815892" class="btn btn--danger" data-contact="phone-mobile">
               <span class="btn__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
               </span>
-              <span>Hemen Ara</span>
+              <span>Şimdi Ara</span>
             </a>
             <a href="https://wa.me/905398815892" class="btn btn--secondary" target="_blank" rel="noopener" data-contact="whatsapp">
               <span class="btn__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg>
               </span>
-              <span>WhatsApp'tan Ulaş</span>
+              <span>WhatsApp'tan Yaz</span>
             </a>
           </div>
         </div>
@@ -165,6 +207,12 @@
             </span>
             <span class="trust-bar__title">Dalgıç Motorları</span>
           </li>
+          <li class="trust-bar__item">
+            <span class="trust-bar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><path d="M9 5v2"/><path d="M15 5v2"/></svg>
+            </span>
+            <span class="trust-bar__title">Otomasyon</span>
+          </li>
         </ul>
       </div>
     </section>
@@ -174,9 +222,9 @@
       <div class="section-head section-head--center" data-reveal>
         <p class="eyebrow">Hizmetlerimiz</p>
         <h2>Nerede Yardımcı Oluyoruz</h2>
-        <p class="section-head__lede">Isınma ve su sistemlerinizde dört ana alanda teknik destek sağlıyoruz.</p>
+        <p class="section-head__lede">Isınma ve su sistemlerinizde beş ana alanda teknik destek sağlıyoruz.</p>
       </div>
-      <div class="grid grid--4">
+      <div class="grid grid--5">
         <a href="hizmetler.html#kombi" class="service-card" data-reveal>
           <span class="service-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3-3 4-3 8a3 3 0 0 0 6 0c0-1-1-2-1-2 1 3 3 3 3 6a5 5 0 0 1-10 0c0-5 5-6 5-12Z"/></svg>
@@ -207,6 +255,14 @@
           </span>
           <h3 class="service-card__title">Dalgıç Motorları</h3>
           <p class="service-card__desc">Dalgıç motor arıza tespiti ve teknik servis desteği veriyoruz.</p>
+          <span class="service-card__link">Detaylı Bilgi <span class="service-card__link-arrow" aria-hidden="true">→</span></span>
+        </a>
+        <a href="hizmetler.html#otomasyon" class="service-card" data-reveal>
+          <span class="service-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><path d="M9 5v2"/><path d="M15 5v2"/></svg>
+          </span>
+          <h3 class="service-card__title">Otomasyon Servisi</h3>
+          <p class="service-card__desc">Isıtma ve su sistemlerinde otomasyon kontrolü için teknik destek sağlıyoruz.</p>
           <span class="service-card__link">Detaylı Bilgi <span class="service-card__link-arrow" aria-hidden="true">→</span></span>
         </a>
       </div>
@@ -250,20 +306,28 @@
         <div class="cta-band__content">
           <p class="eyebrow">İletişim</p>
           <h2>Hemen Arayın, Yardımcı Olalım</h2>
-          <p class="text-dim">Kombi, kazan, hidrofor ve dalgıç motoru ihtiyaçlarınız için bize ulaşın.</p>
+          <p class="text-dim">İstanbul Avrupa Yakası'nda kombi, kazan, hidrofor, dalgıç motoru ve otomasyon ihtiyaçlarınız için 7/24 bize ulaşın.</p>
           <div class="cta-band__phones">
             <a href="tel:+905398815892" class="cta-band__phone" data-contact="phone-mobile" data-contact-text>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
               0539 881 58 92
             </a>
-            <a href="tel:+902126306265" class="cta-band__phone" data-contact="phone-landline" data-contact-text>
+            <a href="tel:+902126305892" class="cta-band__phone" data-contact="phone-landline-1" data-contact-text>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
-              0212 630 62 65
+              0212 630 58 92
+            </a>
+            <a href="tel:+902126302900" class="cta-band__phone" data-contact="phone-landline-2" data-contact-text>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
+              0212 630 29 00
+            </a>
+            <a href="tel:+902126390643" class="cta-band__phone" data-contact="phone-landline-3" data-contact-text>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
+              0212 639 06 43
             </a>
           </div>
           <div class="cta-band__actions">
-            <a href="tel:+905398815892" class="btn btn--danger" data-contact="phone-mobile">Hemen Ara</a>
-            <a href="https://wa.me/905398815892" class="btn btn--secondary" target="_blank" rel="noopener" data-contact="whatsapp">WhatsApp'tan Ulaş</a>
+            <a href="tel:+905398815892" class="btn btn--danger" data-contact="phone-mobile">Şimdi Ara</a>
+            <a href="https://wa.me/905398815892" class="btn btn--secondary" target="_blank" rel="noopener" data-contact="whatsapp">WhatsApp'tan Yaz</a>
           </div>
         </div>
       </div>
@@ -274,8 +338,8 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <span class="footer__logo">Murat <strong>Kombi</strong></span>
-          <p class="footer__tagline">Kombi, kazan, hidrofor ve dalgıç motorlarında teknik servis.</p>
+          <span class="footer__logo">Merkez <strong>Isı</strong> Teknik Servis</span>
+          <p class="footer__tagline">Kombi, kazan, hidrofor, dalgıç motoru ve otomasyon hizmetlerinde İstanbul Avrupa Yakası'nda 7/24 teknik servis.</p>
         </div>
         <div>
           <p class="footer__heading">Sayfalar</p>
@@ -290,13 +354,17 @@
           <p class="footer__heading">İletişim</p>
           <div class="footer__list">
             <a href="tel:+905398815892" data-contact="phone-mobile" data-contact-text>0539 881 58 92</a>
-            <a href="tel:+902126306265" data-contact="phone-landline" data-contact-text>0212 630 62 65</a>
-            <a href="https://wa.me/905398815892" target="_blank" rel="noopener" data-contact="whatsapp">WhatsApp'tan Ulaş</a>
+            <a href="tel:+902126305892" data-contact="phone-landline-1" data-contact-text>0212 630 58 92</a>
+            <a href="tel:+902126302900" data-contact="phone-landline-2" data-contact-text>0212 630 29 00</a>
+            <a href="tel:+902126390643" data-contact="phone-landline-3" data-contact-text>0212 639 06 43</a>
+            <a href="https://wa.me/905398815892" target="_blank" rel="noopener" data-contact="whatsapp">WhatsApp'tan Yaz</a>
+            <span>Yenibosna Merkez Mahallesi, Yıldıztepe Sokak No: 8, Bahçelievler / İstanbul</span>
+            <span>İstanbul Avrupa Yakası · 7/24 Hizmet</span>
           </div>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>&copy; 2026 Murat Kombi. Tüm hakları saklıdır.</span>
+        <span>&copy; 2026 Merkez Isı Teknik Servis. Tüm hakları saklıdır.</span>
         <span>Atlas Game Studio tarafından geliştirildi.</span>
       </div>
     </div>
@@ -305,7 +373,7 @@
   <nav class="sticky-cta" aria-label="Hızlı iletişim">
     <a href="tel:+905398815892" class="sticky-cta__link sticky-cta__link--call" data-contact="phone-mobile">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
-      Ara
+      Şimdi Ara
     </a>
     <a href="https://wa.me/905398815892" class="sticky-cta__link sticky-cta__link--whatsapp" target="_blank" rel="noopener" data-contact="whatsapp">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg>

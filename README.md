@@ -1,6 +1,9 @@
-# Murat Kombi — Website
+# Merkez Isı Teknik Servis — Website
 
-Premium industrial-technical service website for Murat Kombi, built by Atlas Game Studio.
+Premium industrial-technical service website for Merkez Isı Teknik Servis, built by Atlas Game Studio.
+Repo/folder name stays `MuratKombi` for historical/technical continuity — "Murat Kombi" was an early
+working name and must not appear anywhere in customer-facing production content (see
+`MURAT-KOMBI-SITE-AUDIT.md`, P0 SONUÇ RAPORU, for the full brand correction and source-of-truth data).
 
 ## Stack
 
@@ -32,13 +35,19 @@ or use VS Code's Live Server extension, then open `index.html`.
 
 ## Content status — verified vs. placeholder
 
-**Verified (from the client's WhatsApp business profile):**
-- Business name: Murat Kombi
-- Services: Kombi, Kazan, Hidrofor, Dalgıç Motorları
-- Phones: 0539 881 58 92 (mobile / WhatsApp), 0212 630 62 65 (landline)
+**Verified (P0 source of truth, confirmed by the business owner 2026-08-15):**
+- Business name: Merkez Isı Teknik Servis
+- Services: Kombi, Kazan, Hidrofor, Dalgıç Motorları, Otomasyon
+- Phones: 0539 881 58 92 (mobile / WhatsApp), 0212 630 58 92 / 0212 630 29 00 / 0212 639 06 43 (3 landlines)
+- Address: Yenibosna Merkez Mahallesi, Yıldıztepe Sokak No: 8, Bahçelievler / İstanbul
+- Hours: 7/24 — Service area: İstanbul Avrupa Yakası only (no Anadolu Yakası)
+- Founded: 2001 — Experience: 25+ yıl
+
+**Explicitly excluded for now (not yet verified as an active service):**
+- Beyaz Eşya (white-goods repair) — do not add to menu, service cards, or schema until confirmed.
 
 **Not yet provided — intentionally omitted from the UI (no invented facts):**
-- Address, opening hours, email, social links, certifications, years in business, customer/employee counts, pricing, testimonials.
+- Email, social links, certifications, customer/employee counts, pricing, testimonials.
 - These sections do not render at all rather than showing visible placeholder text to the client. Add them once the client provides real data.
 
 **Known follow-ups before launch:**

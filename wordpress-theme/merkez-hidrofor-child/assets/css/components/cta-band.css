@@ -1,0 +1,65 @@
+/* CTA band — primary contact conversion block, call + WhatsApp, no map/address (not yet provided). */
+
+.cta-band {
+  background: linear-gradient(135deg, var(--color-charcoal-soft) 0%, var(--color-black) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  text-align: center;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .cta-band {
+    padding: var(--space-9);
+  }
+}
+
+.cta-band__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+  max-width: 44rem;
+}
+
+.cta-band__phones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3) var(--space-6);
+  margin-top: var(--space-2);
+}
+
+.cta-band__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--color-text);
+  transition: color var(--duration-fast) var(--ease-premium);
+}
+
+.cta-band__phone:hover {
+  color: var(--color-accent-hover);
+}
+
+.cta-band__phone svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}

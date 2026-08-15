@@ -1,0 +1,27 @@
+/*
+Theme Name: Merkez Isı Teknik Servis Child
+Theme URI: https://www.merkezhidrofor.com/
+Description: Production child theme for Merkez Isı Teknik Servis (kombi, kazan, hidrofor, dalgıç
+  motoru, otomasyon — İstanbul Avrupa Yakası, 7/24). Ports the MuratKombi static design reference
+  onto the existing WordPress install without touching parent theme files, the database, or the
+  current URL structure. See MURAT-KOMBI-SITE-AUDIT.md at the project root for the full audit,
+  URL/301 strategy, and P0 source-of-truth business data this theme is built against.
+Author: Atlas Game Studio
+Template: avril
+Version: 1.0.0
+Text Domain: merkez-isi-child
+
+IMPORTANT — verify before activating on the live site:
+"Template: avril" assumes the parent theme's folder slug in wp-content/themes/ is literally
+"avril" (inferred from the live site's "Powered by Avril WordPress Teması" footer credit and
+Nayra Themes' free theme naming convention — not confirmed against the actual server filesystem,
+which this implementation had no access to). Before activating this child theme:
+  1. Check wp-content/themes/ on the live server (via hosting file manager or FTP) for the exact
+     parent folder name and correct this "Template:" line if it differs from "avril".
+  2. Activating a child theme with a wrong "Template:" value does not fatal-error WordPress, but
+     the theme will not appear as activatable ("broken theme") until this is fixed.
+
+All actual styling lives in assets/css/ (enqueued from functions.php), copied 1:1 from the
+MuratKombi static design reference and kept in sync with it — this file intentionally stays
+metadata-only, which is a common and valid WordPress child theme pattern.
+*/
