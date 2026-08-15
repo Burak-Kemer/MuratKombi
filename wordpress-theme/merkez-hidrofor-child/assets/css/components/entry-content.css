@@ -1,0 +1,186 @@
+/* Entry content — typography wrapper for arbitrary WordPress the_content() output
+   (existing pages/posts, including old demo/Lorem Ipsum text). Also covers the
+   archive/search results list and the core search form, since all three render
+   WP-generated markup this theme doesn't fully control the structure of. */
+
+.entry-content {
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.entry-content p {
+  color: var(--color-text-dim);
+}
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 {
+  margin-top: var(--space-4);
+}
+
+.entry-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.entry-content ul,
+.entry-content ol {
+  padding-left: 1.25rem;
+  list-style: revert;
+  color: var(--color-text-dim);
+}
+
+.entry-content img {
+  border-radius: var(--radius-md);
+}
+
+.entry-content__pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Archive / search results list */
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 48rem;
+}
+
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.archive-card__title a {
+  color: var(--color-text);
+}
+
+.archive-card__title a:hover {
+  color: var(--color-accent);
+}
+
+.archive-card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+}
+
+.archive-card__excerpt {
+  color: var(--color-text-dim);
+  font-size: var(--fs-sm);
+}
+
+/* Core search form */
+.search-form {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 32rem;
+  margin-bottom: var(--space-7);
+}
+
+.search-form__input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+}
+
+.search-form__input:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.search-no-results {
+  color: var(--color-text-dim);
+}
+
+/* Pill/tag list — used site-wide for service/brand/district lists (front-page.php,
+   template-hakkimizda.php, template-ilce-servisi.php, template-iletisim.php). Moved
+   here from pages/contact.css because it isn't actually contact-page-specific and
+   pages/contact.css only loads conditionally on template-iletisim.php. */
+.contact-services {
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-services__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.contact-services__list li {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+}
+
+/* Breadcrumbs (Yoast-rendered, this theme only supplies the wrapper's spacing) */
+.breadcrumbs {
+  padding-top: clamp(6rem, 5rem + 3vw, 7.5rem);
+  padding-bottom: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-dim);
+}
+
+.breadcrumbs a {
+  color: var(--color-text-dim);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent);
+}
+
+/* Related services — internal-linking block used on page.php/single.php and the
+   homepage service grid. */
+.related-services {
+  max-width: 48rem;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.related-services__heading {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.related-services__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.related-services__list a {
+  display: inline-flex;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-premium),
+    color var(--duration-fast) var(--ease-premium);
+}
+
+.related-services__list a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}

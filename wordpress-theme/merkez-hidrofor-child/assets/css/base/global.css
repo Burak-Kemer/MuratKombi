@@ -124,36 +124,3 @@ hr {
     transition: none;
   }
 }
-
-/* Readable spacing for freeform WordPress the_content() output (migrated pillar/district pages
-   — see MURAT-KOMBI-SITE-AUDIT.md P0.5). Not used by any static HTML page in this repo directly;
-   only by the WordPress child theme's page.php. */
-.prose {
-  max-width: 44rem;
-}
-
-.prose > * + * {
-  margin-top: var(--space-5);
-}
-
-.prose h2,
-.prose h3,
-.prose h4 {
-  margin-top: var(--space-8);
-}
-
-.prose ul,
-.prose ol {
-  padding-inline-start: 1.25em;
-  color: var(--color-text-dim);
-}
-
-.prose li + li {
-  margin-top: var(--space-2);
-}
-
-.prose a {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}

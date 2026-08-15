@@ -14,13 +14,7 @@
 
 @media (min-width: 700px) {
   .trust-bar {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 1000px) {
-  .trust-bar {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

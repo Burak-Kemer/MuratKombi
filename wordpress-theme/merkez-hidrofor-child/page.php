@@ -1,13 +1,11 @@
 <?php
 /**
- * Generic page template — page-header (from the post title/excerpt) + the_content(), so real
- * migrated WordPress content (e.g. the /hidrofor-servisi/ pillar page, district pages — see
- * MURAT-KOMBI-SITE-AUDIT.md P0.5 URL/301 table) renders through the new design without this theme
- * needing to hardcode or re-type that content anywhere. Ends with the shared CTA band.
- *
- * The Hakkımızda page additionally gets the two trust-bar strips (2001/25+ yıl/7-24/Avrupa Yakası
- * + the 5 service icons) between the header and the_content(), matching hakkimizda.html in the
- * static design reference — this is the one page-specific exception in an otherwise generic file.
+ * Generic page template — used for EVERY existing WordPress page (hakkimizda-2,
+ * markalar, iletisim-05398815892, all district "-wilo-hidrofor-servisi" pages,
+ * sample-page, etc). Renders the real the_title()/the_content() of each page inside
+ * the new design's chrome. Content is never hardcoded or rewritten here — whatever
+ * is actually stored for that page (including old demo/Lorem Ipsum text) is what
+ * renders, so no existing page loses its content.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,56 +14,64 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$data       = merkez_isi_get_business_data();
-$is_about   = is_page( 'hakkimizda' );
+$mh_business = merkez_hidrofor_business();
+$mh_call     = $mh_business['primary_call'];
+$mh_whatsapp = $mh_business['whatsapp'];
 ?>
 
-<?php
-get_template_part(
-	'template-parts/page-header',
-	null,
-	array(
-		'eyebrow' => get_the_title(),
-		'title'   => $is_about
-			? $data['founded'] . "'den Bu Yana Isınma ve Su Sistemlerinde Teknik Servis"
-			: get_the_title(),
-		'lede'    => $is_about
-			? $data['name'] . ', ' . $data['founded'] . ' yılından bu yana ' . $data['experience'] . ' tecrübeyle ' . $data['serviceArea'] . "'nda kombi, kazan, hidrofor, dalgıç motoru ve otomasyon alanlarında " . $data['hours'] . ' teknik servis hizmeti sunuyor.'
-			: '',
-	)
-);
-?>
+<?php merkez_hidrofor_breadcrumbs(); ?>
 
-<?php if ( $is_about ) : ?>
-	<section class="section container">
-		<div class="section-head" data-reveal>
-			<p class="eyebrow">Neden Biz</p>
-			<h2>Güven Verdiğimiz Noktalar</h2>
-		</div>
-		<?php get_template_part( 'template-parts/trust-bar', null, array( 'variant' => 'trust' ) ); ?>
-	</section>
+<?php while ( have_posts() ) : ?>
+	<?php the_post(); ?>
+
+	<header class="page-header container">
+		<p class="eyebrow"><?php echo esc_html( $mh_business['name'] ); ?></p>
+		<h1 class="page-header__title"><?php the_title(); ?></h1>
+		<?php if ( has_excerpt() ) : ?>
+			<p class="page-header__lede"><?php echo esc_html( get_the_excerpt() ); ?></p>
+		<?php endif; ?>
+	</header>
 
 	<section class="section container">
-		<div class="section-head" data-reveal>
-			<p class="eyebrow">Çalışma Alanlarımız</p>
-			<h2>Neyle İlgileniyoruz</h2>
+		<div class="entry-content">
+			<?php the_content(); ?>
+			<?php
+			wp_link_pages(
+				array(
+					'before' => '<nav class="entry-content__pages">',
+					'after'  => '</nav>',
+				)
+			);
+			?>
 		</div>
-		<?php get_template_part( 'template-parts/trust-bar', null, array( 'variant' => 'services' ) ); ?>
-	</section>
-<?php endif; ?>
 
-<?php while ( have_posts() ) : the_post(); ?>
-	<?php if ( get_the_content() ) : ?>
-		<section class="section container">
-			<div class="prose" data-reveal>
-				<?php the_content(); ?>
-			</div>
-		</section>
-	<?php endif; ?>
+		<?php merkez_hidrofor_related_services( get_post_field( 'post_name' ) ); ?>
+	</section>
 <?php endwhile; ?>
 
 <section class="section container">
-	<?php get_template_part( 'template-parts/cta-band', null, array( 'heading' => 'Sorularınız İçin Bize Ulaşın' ) ); ?>
+	<div class="cta-band" data-reveal>
+		<div class="cta-band__content">
+			<p class="eyebrow"><?php esc_html_e( 'İletişim', 'merkez-hidrofor-child' ); ?></p>
+			<h2><?php esc_html_e( 'Sorularınız İçin Bize Ulaşın', 'merkez-hidrofor-child' ); ?></h2>
+			<div class="cta-band__phones">
+				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="cta-band__phone">
+					<?php merkez_hidrofor_the_icon( 'phone' ); ?>
+					<?php echo esc_html( $mh_call['label'] ); ?>
+				</a>
+				<?php foreach ( $mh_business['phones'] as $mh_phone ) : ?>
+					<a href="<?php echo esc_url( $mh_phone['href'] ); ?>" class="cta-band__phone">
+						<?php merkez_hidrofor_the_icon( 'phone' ); ?>
+						<?php echo esc_html( $mh_phone['label'] ); ?>
+					</a>
+				<?php endforeach; ?>
+			</div>
+			<div class="cta-band__actions">
+				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="btn btn--danger"><?php esc_html_e( 'Hemen Ara', 'merkez-hidrofor-child' ); ?></a>
+				<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" class="btn btn--secondary" target="_blank" rel="noopener"><?php esc_html_e( "WhatsApp'tan Ulaş", 'merkez-hidrofor-child' ); ?></a>
+			</div>
+		</div>
+	</div>
 </section>
 
 <?php get_footer(); ?>

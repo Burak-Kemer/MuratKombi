@@ -19,3 +19,9 @@
   color: var(--color-text-dim);
   font-size: var(--fs-md);
 }
+
+/* When Yoast breadcrumbs are enabled, .breadcrumbs already clears the fixed nav —
+   page-header doesn't need its own large nav-clearance padding stacked on top too. */
+.breadcrumbs + .page-header {
+  padding-top: var(--space-8);
+}

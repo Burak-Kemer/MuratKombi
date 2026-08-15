@@ -1,64 +1,102 @@
 <?php
 /**
- * Closes </main> opened in header.php, then the site footer + mobile sticky call/WhatsApp bar,
- * ported 1:1 from the static design reference.
+ * Footer template — ported from the MuratKombi static design.
+ * Opens by closing the <main> tag that header.php left open.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$data = merkez_isi_get_business_data();
+$mh_business = merkez_hidrofor_business();
+$mh_call     = $mh_business['primary_call'];
+$mh_whatsapp = $mh_business['whatsapp'];
 ?>
-	</main>
+</main>
 
-	<footer class="site-footer">
-		<div class="container">
-			<div class="footer__grid">
-				<div class="footer__brand">
-					<span class="footer__logo">Merkez <strong>Isı</strong> Teknik Servis</span>
-					<p class="footer__tagline">Kombi, kazan, hidrofor, dalgıç motoru ve otomasyon hizmetlerinde <?php echo esc_html( $data['serviceArea'] ); ?>'nda <?php echo esc_html( $data['hours'] ); ?> teknik servis.</p>
-				</div>
-				<div>
-					<p class="footer__heading">Sayfalar</p>
-					<nav class="footer__list" aria-label="Footer sayfa bağlantıları">
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Ana Sayfa</a>
-						<a href="<?php echo esc_url( merkez_isi_page_url( 'hizmetler' ) ); ?>">Hizmetler</a>
-						<a href="<?php echo esc_url( merkez_isi_page_url( 'hakkimizda' ) ); ?>">Hakkımızda</a>
-						<a href="<?php echo esc_url( merkez_isi_page_url( 'iletisim' ) ); ?>">İletişim</a>
-					</nav>
-				</div>
-				<div>
-					<p class="footer__heading">İletişim</p>
-					<div class="footer__list">
-						<a href="<?php echo esc_url( $data['phones']['mobile']['href'] ); ?>"><?php echo esc_html( $data['phones']['mobile']['number'] ); ?></a>
-						<?php foreach ( $data['phones']['landlines'] as $landline ) : ?>
-							<a href="<?php echo esc_url( $landline['href'] ); ?>"><?php echo esc_html( $landline['number'] ); ?></a>
-						<?php endforeach; ?>
-						<a href="<?php echo esc_url( $data['whatsapp']['href'] ); ?>" target="_blank" rel="noopener">WhatsApp'tan Yaz</a>
-						<span><?php echo esc_html( $data['address']['line'] . ', ' . $data['address']['district'] . ' / ' . $data['address']['city'] ); ?></span>
-						<span><?php echo esc_html( $data['serviceArea'] ); ?> · <?php echo esc_html( $data['hours'] ); ?> Hizmet</span>
-					</div>
-				</div>
+<footer class="site-footer">
+	<div class="container">
+		<div class="footer__grid">
+			<div class="footer__brand">
+				<span class="footer__logo">Merkez <strong><?php esc_html_e( 'Hidrofor', 'merkez-hidrofor-child' ); ?></strong></span>
+				<p class="footer__tagline">
+					<?php echo esc_html( $mh_business['legal_name'] ); ?> —
+					<?php echo esc_html( $mh_business['service_area'] ); ?>, <?php echo esc_html( $mh_business['hours'] ); ?> <?php esc_html_e( 'hizmet', 'merkez-hidrofor-child' ); ?>.
+				</p>
 			</div>
-			<div class="footer__bottom">
-				<span>&copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php echo esc_html( $data['name'] ); ?>. Tüm hakları saklıdır.</span>
-				<span>Atlas Game Studio tarafından geliştirildi.</span>
+
+			<div>
+				<h3 class="footer__heading"><?php esc_html_e( 'Sayfalar', 'merkez-hidrofor-child' ); ?></h3>
+				<?php if ( has_nav_menu( 'footer' ) ) : ?>
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'footer',
+							'container'      => false,
+							'menu_class'     => 'footer__list',
+							'depth'          => 1,
+						)
+					);
+					?>
+				<?php else : ?>
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => MERKEZ_HIDROFOR_MENU_LOCATION,
+							'container'      => false,
+							'menu_class'     => 'footer__list',
+							'fallback_cb'    => 'wp_page_menu',
+							'depth'          => 1,
+						)
+					);
+					?>
+				<?php endif; ?>
+			</div>
+
+			<div>
+				<h3 class="footer__heading"><?php esc_html_e( 'İletişim', 'merkez-hidrofor-child' ); ?></h3>
+				<div class="footer__list">
+					<a href="<?php echo esc_url( $mh_call['href'] ); ?>"><?php echo esc_html( $mh_call['label'] ); ?></a>
+					<?php foreach ( $mh_business['phones'] as $mh_phone ) : ?>
+						<a href="<?php echo esc_url( $mh_phone['href'] ); ?>"><?php echo esc_html( $mh_phone['label'] ); ?></a>
+					<?php endforeach; ?>
+					<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" target="_blank" rel="noopener">
+						<?php esc_html_e( "WhatsApp'tan Ulaş", 'merkez-hidrofor-child' ); ?>
+					</a>
+					<span>
+						<?php echo esc_html( $mh_business['address']['line1'] ); ?>,
+						<?php echo esc_html( $mh_business['address']['line2'] ); ?>,
+						<?php echo esc_html( $mh_business['address']['line3'] ); ?>
+					</span>
+				</div>
 			</div>
 		</div>
-	</footer>
 
-	<nav class="sticky-cta" aria-label="Hızlı iletişim">
-		<a href="<?php echo esc_url( $data['phones']['mobile']['href'] ); ?>" class="sticky-cta__link sticky-cta__link--call">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg>
-			Şimdi Ara
-		</a>
-		<a href="<?php echo esc_url( $data['whatsapp']['href'] ); ?>" class="sticky-cta__link sticky-cta__link--whatsapp" target="_blank" rel="noopener">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg>
-			WhatsApp
-		</a>
-	</nav>
+		<div class="footer__districts">
+			<h3 class="footer__heading"><?php esc_html_e( 'Hizmet Bölgelerimiz', 'merkez-hidrofor-child' ); ?></h3>
+			<p class="footer__districts-list">
+				<?php echo esc_html( implode( ', ', $mh_business['service_districts'] ) ); ?>
+			</p>
+		</div>
 
-	<?php wp_footer(); ?>
+		<div class="footer__bottom">
+			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'Tüm hakları saklıdır.', 'merkez-hidrofor-child' ); ?></span>
+			<span><?php esc_html_e( 'Atlas Game Studio tarafından geliştirildi.', 'merkez-hidrofor-child' ); ?></span>
+		</div>
+	</div>
+</footer>
+
+<nav class="sticky-cta" aria-label="<?php esc_attr_e( 'Hızlı iletişim', 'merkez-hidrofor-child' ); ?>">
+	<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="sticky-cta__link sticky-cta__link--call">
+		<?php merkez_hidrofor_the_icon( 'phone' ); ?>
+		<?php esc_html_e( 'Ara', 'merkez-hidrofor-child' ); ?>
+	</a>
+	<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" class="sticky-cta__link sticky-cta__link--whatsapp" target="_blank" rel="noopener">
+		<?php merkez_hidrofor_the_icon( 'whatsapp' ); ?>
+		WhatsApp
+	</a>
+</nav>
+
+<?php wp_footer(); ?>
 </body>
 </html>

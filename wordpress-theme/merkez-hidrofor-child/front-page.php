@@ -1,8 +1,9 @@
 <?php
 /**
- * Homepage — ported from the static design reference's index.html: hero (H1 = brand name per
- * audit P0.4's final recommendation, "Murat Kombi & Hidrofor..." was rejected — real brand is
- * "Merkez Isı Teknik Servis"), 5-item trust bar, 5 service cards, process steps, CTA band.
+ * Front page template — converted from the MuratKombi static index.html.
+ * The WP front page object's own the_content() is intentionally not dumped here:
+ * it currently holds no real editorial content, so this stays a hand-built landing
+ * page (hero, services, process, CTA) driven by inc/business-data.php instead.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,42 +12,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$data = merkez_isi_get_business_data();
+$mh_business = merkez_hidrofor_business();
+$mh_call     = $mh_business['primary_call'];
+$mh_whatsapp = $mh_business['whatsapp'];
 
-$services = array(
+$mh_home_services = array(
 	array(
-		'anchor' => 'kombi',
-		'title'  => 'Kombi Servisi',
-		'desc'   => 'Kombi arıza tespiti, bakım ve onarım desteği için bize ulaşın.',
-		'svg'    => '<path d="M12 2c1 3-3 4-3 8a3 3 0 0 0 6 0c0-1-1-2-1-2 1 3 3 3 3 6a5 5 0 0 1-10 0c0-5 5-6 5-12Z"/>',
+		'icon'  => 'hidrofor',
+		'title' => 'Hidrofor Servisi',
+		'desc'  => 'Hidrofor arıza tespiti, bakım ve kurulum desteği sağlıyoruz.',
+		'slug'  => 'hidrofor-servisi',
 	),
 	array(
-		'anchor' => 'kazan',
-		'title'  => 'Kazan Sistemleri',
-		'desc'   => 'Kazan sistemlerinde teknik inceleme ve bakım hizmeti sunuyoruz.',
-		'svg'    => '<rect x="7" y="4" width="10" height="16" rx="5"/><path d="M7 9h10"/><path d="M7 15h10"/>',
+		'icon'  => 'dalgic',
+		'title' => 'Pompa Servisi',
+		'desc'  => 'Pompa bakım ve onarımında yerinde teknik destek veriyoruz.',
+		'slug'  => 'hidrofor-pompa-servisi',
 	),
 	array(
-		'anchor' => 'hidrofor',
-		'title'  => 'Hidrofor Sistemleri',
-		'desc'   => 'Hidrofor arıza tespiti, bakım ve kurulum desteği sağlıyoruz.',
-		'svg'    => '<circle cx="12" cy="9" r="4"/><path d="M12 5V3"/><rect x="8" y="13" width="8" height="7" rx="1.5"/>',
+		'icon'  => 'kazan',
+		'title' => 'Kazan Servisi',
+		'desc'  => 'Kazan sistemlerinde teknik inceleme ve bakım hizmeti sunuyoruz.',
+		'slug'  => null,
 	),
 	array(
-		'anchor' => 'dalgic-motorlari',
-		'title'  => 'Dalgıç Motorları',
-		'desc'   => 'Dalgıç motor arıza tespiti ve teknik servis desteği veriyoruz.',
-		'svg'    => '<rect x="9" y="3" width="6" height="10" rx="2"/><path d="M4 18c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0"/>',
-	),
-	array(
-		'anchor' => 'otomasyon',
-		'title'  => 'Otomasyon Servisi',
-		'desc'   => 'Isıtma ve su sistemlerinde otomasyon kontrolü için teknik destek sağlıyoruz.',
-		'svg'    => '<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><path d="M9 5v2"/><path d="M15 5v2"/>',
+		'icon'  => 'kombi',
+		'title' => 'Kombi Servisi',
+		'desc'  => 'Kombi arıza tespiti, bakım ve onarım desteği için bize ulaşın.',
+		'slug'  => null,
 	),
 );
-
-$hizmetler_url = merkez_isi_page_url( 'hizmetler' );
 ?>
 
 <section class="hero">
@@ -58,100 +53,178 @@ $hizmetler_url = merkez_isi_page_url( 'hizmetler' );
 
 	<div class="container hero__grid">
 		<div class="hero__text">
-			<p class="eyebrow"><?php echo esc_html( $data['serviceArea'] ); ?> · <?php echo esc_html( $data['hours'] ); ?> Teknik Servis</p>
-			<h1 class="hero__title"><?php echo esc_html( $data['name'] ); ?></h1>
-			<p class="hero__lede">Kombi, kazan, hidrofor, dalgıç motorları ve otomasyon hizmetlerinde <?php echo esc_html( $data['hours'] ); ?> teknik servis.</p>
+			<p class="eyebrow"><?php echo esc_html( $mh_business['name'] ); ?> · <?php echo esc_html( $mh_business['founded'] ); ?>'den Beri Teknik Servis</p>
+			<h1 class="hero__title">Hidrofor, Pompa ve Isıtma Sistemlerinde Güvenilir Teknik Çözüm.</h1>
+			<p class="hero__lede">
+				<?php echo esc_html( $mh_business['service_area'] ); ?>'nda <?php echo esc_html( $mh_business['experience'] ); ?> tecrübeyle,
+				<?php echo esc_html( $mh_business['hours'] ); ?> hidrofor, pompa, kazan, brülör ve kombi teknik servisi.
+			</p>
 			<div class="hero__actions">
-				<a href="<?php echo esc_url( $data['phones']['mobile']['href'] ); ?>" class="btn btn--danger">
-					<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 5.5A2 2 0 0 1 6.5 3Z"/></svg></span>
-					<span>Şimdi Ara</span>
+				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="btn btn--danger">
+					<span class="btn__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( 'phone' ); ?></span>
+					<span><?php esc_html_e( '7/24 Servis Talep Et', 'merkez-hidrofor-child' ); ?></span>
 				</a>
-				<a href="<?php echo esc_url( $data['whatsapp']['href'] ); ?>" class="btn btn--secondary" target="_blank" rel="noopener">
-					<span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg></span>
-					<span>WhatsApp'tan Yaz</span>
+				<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" class="btn btn--secondary" target="_blank" rel="noopener">
+					<span class="btn__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( 'whatsapp' ); ?></span>
+					<span><?php esc_html_e( "WhatsApp'tan Ulaş", 'merkez-hidrofor-child' ); ?></span>
 				</a>
 			</div>
+
+			<?php if ( ! empty( $mh_business['google_rating'] ) ) : ?>
+				<div class="hero__trust-badge">
+					<span class="hero__trust-badge-score"><?php echo esc_html( $mh_business['google_rating']['score'] ); ?>/5</span>
+					<span class="hero__trust-badge-label">
+						<?php
+						printf(
+							/* translators: %s: Google review count */
+							esc_html__( 'Google\'da %s değerlendirme', 'merkez-hidrofor-child' ),
+							esc_html( $mh_business['google_rating']['count'] )
+						);
+						?>
+					</span>
+				</div>
+			<?php endif; ?>
 		</div>
 
 		<div class="hero__visual" aria-hidden="true">
 			<picture>
-				<source type="image/avif" srcset="<?php echo esc_url( MERKEZ_ISI_CHILD_URI . '/assets/images/hero/hero-photo.avif' ); ?>" />
-				<source type="image/webp" srcset="<?php echo esc_url( MERKEZ_ISI_CHILD_URI . '/assets/images/hero/hero-photo.webp' ); ?>" />
+				<source type="image/avif" srcset="<?php echo esc_url( MERKEZ_HIDROFOR_URI . '/assets/images/hero/hero-photo.avif' ); ?>" />
+				<source type="image/webp" srcset="<?php echo esc_url( MERKEZ_HIDROFOR_URI . '/assets/images/hero/hero-photo.webp' ); ?>" />
 				<img
 					class="hero__illustration"
-					src="<?php echo esc_url( MERKEZ_ISI_CHILD_URI . '/assets/images/hero/hero-photo.jpg' ); ?>"
-					width="1376" height="768" alt="" fetchpriority="high" decoding="async"
+					src="<?php echo esc_url( MERKEZ_HIDROFOR_URI . '/assets/images/hero/hero-photo.jpg' ); ?>"
+					width="1376"
+					height="768"
+					alt=""
+					fetchpriority="high"
+					decoding="async"
 				/>
 			</picture>
 		</div>
 	</div>
 
 	<div class="container hero__trust">
-		<?php get_template_part( 'template-parts/trust-bar', null, array( 'variant' => 'services' ) ); ?>
+		<ul class="trust-bar">
+			<?php foreach ( $mh_home_services as $mh_service ) : ?>
+				<li class="trust-bar__item">
+					<span class="trust-bar__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( $mh_service['icon'] ); ?></span>
+					<span class="trust-bar__title"><?php echo esc_html( $mh_service['title'] ); ?></span>
+				</li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
 </section>
 
 <section class="section container" id="hizmetler">
 	<div class="section-head section-head--center" data-reveal>
-		<p class="eyebrow">Hizmetlerimiz</p>
-		<h2>Nerede Yardımcı Oluyoruz</h2>
-		<p class="section-head__lede">Isınma ve su sistemlerinizde beş ana alanda teknik destek sağlıyoruz.</p>
+		<p class="eyebrow"><?php esc_html_e( 'Hizmetlerimiz', 'merkez-hidrofor-child' ); ?></p>
+		<h2><?php esc_html_e( 'Nerede Yardımcı Oluyoruz', 'merkez-hidrofor-child' ); ?></h2>
+		<p class="section-head__lede"><?php echo esc_html( $mh_business['service_area'] ); ?>'nda hidrofor, pompa, ısıtma ve beyaz eşya sistemlerinde teknik destek sağlıyoruz.</p>
 	</div>
-	<div class="grid grid--5">
-		<?php foreach ( $services as $service ) : ?>
-		<a href="<?php echo esc_url( $hizmetler_url . '#' . $service['anchor'] ); ?>" class="service-card" data-reveal>
-			<span class="service-card__icon" aria-hidden="true">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><?php echo $service['svg']; // phpcs:ignore -- fixed inline SVG constants defined above ?></svg>
-			</span>
-			<h3 class="service-card__title"><?php echo esc_html( $service['title'] ); ?></h3>
-			<p class="service-card__desc"><?php echo esc_html( $service['desc'] ); ?></p>
-			<span class="service-card__link">Detaylı Bilgi <span class="service-card__link-arrow" aria-hidden="true">→</span></span>
-		</a>
+	<div class="grid grid--4">
+		<?php foreach ( $mh_home_services as $mh_service ) : ?>
+			<?php $mh_service_url = $mh_service['slug'] ? merkez_hidrofor_page_url( $mh_service['slug'] ) : null; ?>
+			<?php if ( $mh_service_url ) : ?>
+				<a href="<?php echo esc_url( $mh_service_url ); ?>" class="service-card" data-reveal>
+					<span class="service-card__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( $mh_service['icon'] ); ?></span>
+					<h3 class="service-card__title"><?php echo esc_html( $mh_service['title'] ); ?></h3>
+					<p class="service-card__desc"><?php echo esc_html( $mh_service['desc'] ); ?></p>
+					<span class="service-card__link">
+						<?php esc_html_e( 'Detaylı Bilgi', 'merkez-hidrofor-child' ); ?>
+						<?php merkez_hidrofor_the_icon( 'arrow' ); ?>
+					</span>
+				</a>
+			<?php else : ?>
+				<div class="service-card" data-reveal>
+					<span class="service-card__icon" aria-hidden="true"><?php merkez_hidrofor_the_icon( $mh_service['icon'] ); ?></span>
+					<h3 class="service-card__title"><?php echo esc_html( $mh_service['title'] ); ?></h3>
+					<p class="service-card__desc"><?php echo esc_html( $mh_service['desc'] ); ?></p>
+				</div>
+			<?php endif; ?>
 		<?php endforeach; ?>
+	</div>
+
+	<?php merkez_hidrofor_related_services(); ?>
+
+	<div class="contact-services" data-reveal style="margin-top: var(--space-8); border-top: none; padding-top: 0;">
+		<p class="eyebrow"><?php esc_html_e( 'Tüm Hizmet Alanlarımız', 'merkez-hidrofor-child' ); ?></p>
+		<ul class="contact-services__list">
+			<?php foreach ( $mh_business['services'] as $mh_service_name ) : ?>
+				<li><?php echo esc_html( $mh_service_name ); ?></li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
 </section>
 
 <section class="section section--surface">
 	<div class="container">
 		<div class="section-head section-head--center" data-reveal>
-			<p class="eyebrow">Nasıl Çalışıyoruz</p>
-			<h2>Teknik Servis Süreci</h2>
+			<p class="eyebrow"><?php esc_html_e( 'Çalıştığımız Markalar', 'merkez-hidrofor-child' ); ?></p>
+			<h2><?php esc_html_e( 'Güvenilir Marka Desteği', 'merkez-hidrofor-child' ); ?></h2>
+		</div>
+		<ul class="contact-services__list" data-reveal style="justify-content: center;">
+			<?php foreach ( $mh_business['brands'] as $mh_brand ) : ?>
+				<li><?php echo esc_html( $mh_brand ); ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</section>
+
+<section class="section section--surface">
+	<div class="container">
+		<div class="section-head section-head--center" data-reveal>
+			<p class="eyebrow"><?php esc_html_e( 'Nasıl Çalışıyoruz', 'merkez-hidrofor-child' ); ?></p>
+			<h2><?php esc_html_e( 'Teknik Servis Süreci', 'merkez-hidrofor-child' ); ?></h2>
 		</div>
 		<div class="process" data-reveal>
 			<div class="process__step">
 				<span class="process__number">01</span>
-				<h3 class="process__title">Arayın</h3>
-				<p class="process__desc">Telefon veya WhatsApp üzerinden bize ulaşın.</p>
+				<h3 class="process__title"><?php esc_html_e( 'Arayın', 'merkez-hidrofor-child' ); ?></h3>
+				<p class="process__desc"><?php esc_html_e( 'Telefon veya WhatsApp üzerinden bize ulaşın.', 'merkez-hidrofor-child' ); ?></p>
 			</div>
 			<div class="process__step">
 				<span class="process__number">02</span>
-				<h3 class="process__title">Sorunu Anlatalım</h3>
-				<p class="process__desc">Arızayı veya ihtiyacınızı kısaca aktarın.</p>
+				<h3 class="process__title"><?php esc_html_e( 'Sorunu Anlatalım', 'merkez-hidrofor-child' ); ?></h3>
+				<p class="process__desc"><?php esc_html_e( 'Arızayı veya ihtiyacınızı kısaca aktarın.', 'merkez-hidrofor-child' ); ?></p>
 			</div>
 			<div class="process__step">
 				<span class="process__number">03</span>
-				<h3 class="process__title">Teknik İnceleme</h3>
-				<p class="process__desc">Sistem yerinde incelenerek değerlendirilir.</p>
+				<h3 class="process__title"><?php esc_html_e( 'Teknik İnceleme', 'merkez-hidrofor-child' ); ?></h3>
+				<p class="process__desc"><?php esc_html_e( 'Sistem yerinde incelenerek değerlendirilir.', 'merkez-hidrofor-child' ); ?></p>
 			</div>
 			<div class="process__step">
 				<span class="process__number">04</span>
-				<h3 class="process__title">Çözüm</h3>
-				<p class="process__desc">Uygun bakım veya onarım çözümü uygulanır.</p>
+				<h3 class="process__title"><?php esc_html_e( 'Çözüm', 'merkez-hidrofor-child' ); ?></h3>
+				<p class="process__desc"><?php esc_html_e( 'Uygun bakım veya onarım çözümü uygulanır.', 'merkez-hidrofor-child' ); ?></p>
 			</div>
 		</div>
 	</div>
 </section>
 
 <section class="section container">
-	<?php
-	get_template_part(
-		'template-parts/cta-band',
-		null,
-		array(
-			'lede' => esc_html( $data['serviceArea'] ) . "'nda kombi, kazan, hidrofor, dalgıç motoru ve otomasyon ihtiyaçlarınız için " . esc_html( $data['hours'] ) . ' bize ulaşın.',
-		)
-	);
-	?>
+	<div class="cta-band" data-reveal>
+		<div class="cta-band__content">
+			<p class="eyebrow"><?php esc_html_e( 'İletişim', 'merkez-hidrofor-child' ); ?></p>
+			<h2><?php esc_html_e( 'Hemen Arayın, Yardımcı Olalım', 'merkez-hidrofor-child' ); ?></h2>
+			<p class="text-dim"><?php echo esc_html( $mh_business['address']['line3'] ); ?> — <?php echo esc_html( $mh_business['hours'] ); ?> hizmetinizdeyiz.</p>
+			<div class="cta-band__phones">
+				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="cta-band__phone">
+					<?php merkez_hidrofor_the_icon( 'phone' ); ?>
+					<?php echo esc_html( $mh_call['label'] ); ?>
+				</a>
+				<?php foreach ( $mh_business['phones'] as $mh_phone ) : ?>
+					<a href="<?php echo esc_url( $mh_phone['href'] ); ?>" class="cta-band__phone">
+						<?php merkez_hidrofor_the_icon( 'phone' ); ?>
+						<?php echo esc_html( $mh_phone['label'] ); ?>
+					</a>
+				<?php endforeach; ?>
+			</div>
+			<div class="cta-band__actions">
+				<a href="<?php echo esc_url( $mh_call['href'] ); ?>" class="btn btn--danger"><?php esc_html_e( 'Hemen Ara', 'merkez-hidrofor-child' ); ?></a>
+				<a href="<?php echo esc_url( $mh_whatsapp['href'] ); ?>" class="btn btn--secondary" target="_blank" rel="noopener"><?php esc_html_e( "WhatsApp'tan Ulaş", 'merkez-hidrofor-child' ); ?></a>
+			</div>
+		</div>
+	</div>
 </section>
 
 <?php get_footer(); ?>

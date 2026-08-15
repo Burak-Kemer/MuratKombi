@@ -1,154 +1,163 @@
 <?php
 /**
- * Merkez Isı Teknik Servis child theme bootstrap.
- * Parent theme (assumed "avril" — verify, see style.css header) is never edited directly;
- * everything here is additive/child-scoped so parent WordPress updates stay safe.
+ * Merkez Hidrofor child theme functions.
+ *
+ * Parent theme: Avril (untouched — this file only adds child-theme behavior on top).
+ * PHP 7.4 compatible: no union types, no arrow-fn-only patterns beyond 7.4, no named args.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MERKEZ_ISI_CHILD_VERSION', '1.0.0' );
-define( 'MERKEZ_ISI_CHILD_URI', get_stylesheet_directory_uri() );
-define( 'MERKEZ_ISI_CHILD_DIR', get_stylesheet_directory() );
+define( 'MERKEZ_HIDROFOR_VERSION', '1.0.0' );
+define( 'MERKEZ_HIDROFOR_DIR', get_stylesheet_directory() );
+define( 'MERKEZ_HIDROFOR_URI', get_stylesheet_directory_uri() );
+define( 'MERKEZ_HIDROFOR_MENU_LOCATION', 'primary_menu' );
 
-require_once MERKEZ_ISI_CHILD_DIR . '/inc/customizer.php';
-require_once MERKEZ_ISI_CHILD_DIR . '/inc/schema.php';
+require_once MERKEZ_HIDROFOR_DIR . '/inc/icons.php';
+require_once MERKEZ_HIDROFOR_DIR . '/inc/seo.php';
 
 /**
- * Theme setup: title-tag support, featured images, nav menu location.
- * Matches what the static design reference already assumes (single primary nav + mobile drawer).
+ * Central business/contact data (see inc/business-data.php).
+ * Loaded once and cached in a static var for the rest of the request.
+ *
+ * @return array
  */
-function merkez_isi_setup() {
+function merkez_hidrofor_business() {
+	static $data = null;
+	if ( null === $data ) {
+		$data = require MERKEZ_HIDROFOR_DIR . '/inc/business-data.php';
+	}
+	return $data;
+}
+
+/**
+ * Theme setup. Avril's own after_setup_theme callback (custom-logo, 'primary_menu',
+ * html5 support, etc.) still runs for a child theme — WordPress always loads the
+ * parent theme's functions.php before the child's. We only add what this child
+ * needs on top; nothing here removes or replaces a parent feature.
+ */
+function merkez_hidrofor_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'script', 'style' ) );
+	add_theme_support( 'custom-logo' );
+	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
 
+	// Additive only — Avril's own 'primary_menu' location (used for the main nav)
+	// stays registered and untouched. This just gives the client an OPTIONAL
+	// separate menu for the footer column; if they never assign one, footer.php
+	// falls back to reusing the primary menu automatically.
 	register_nav_menus(
 		array(
-			'primary' => __( 'Ana Menü', 'merkez-isi-child' ),
+			'footer' => __( 'Footer Menu', 'merkez-hidrofor-child' ),
 		)
 	);
 }
-add_action( 'after_setup_theme', 'merkez_isi_setup' );
+add_action( 'after_setup_theme', 'merkez_hidrofor_setup' );
 
 /**
- * Enqueue the child theme's CSS (1:1 copy of the static design reference's assets/css/)
- * on top of the parent theme's stylesheet, and the ES-module JS bundle.
+ * wp_nav_menu()'s menu_class argument only sets a class on the outer <ul> — it does
+ * NOT add anything to each <a>. The ported nav.css (hover underline, active-page
+ * color) all targets .nav__link on the link itself, exactly like the static site's
+ * hand-authored <a class="nav__link">. This filter adds that class to every menu
+ * item's <a>, and — since WordPress core also doesn't add aria-current, only a
+ * 'current-menu-item' class on the <li> — mirrors the static design's
+ * aria-current="page" on whichever item is active.
  */
-function merkez_isi_enqueue_assets() {
-	// Parent theme stylesheet first — standard child theme dependency chain.
-	wp_enqueue_style(
-		'merkez-isi-parent-style',
-		get_template_directory_uri() . '/style.css',
-		array(),
-		MERKEZ_ISI_CHILD_VERSION
-	);
+function merkez_hidrofor_nav_menu_link_atts( $atts, $item ) {
+	$classes   = isset( $atts['class'] ) ? explode( ' ', $atts['class'] ) : array();
+	$classes[] = 'nav__link';
+	$atts['class'] = implode( ' ', array_unique( array_filter( $classes ) ) );
 
-	$css_files = array(
-		'merkez-isi-reset'         => '/assets/css/base/reset.css',
-		'merkez-isi-tokens'        => '/assets/css/base/tokens.css',
-		'merkez-isi-typography'    => '/assets/css/base/typography.css',
-		'merkez-isi-global'        => '/assets/css/base/global.css',
-		'merkez-isi-container'     => '/assets/css/layout/container.css',
-		'merkez-isi-button'        => '/assets/css/components/button.css',
-		'merkez-isi-nav'           => '/assets/css/components/nav.css',
-		'merkez-isi-page-header'   => '/assets/css/components/page-header.css',
-		'merkez-isi-service-card'  => '/assets/css/components/service-card.css',
-		'merkez-isi-trust-bar'     => '/assets/css/components/trust-bar.css',
-		'merkez-isi-process-steps' => '/assets/css/components/process-steps.css',
-		'merkez-isi-cta-band'      => '/assets/css/components/cta-band.css',
-		'merkez-isi-footer'        => '/assets/css/components/footer.css',
-		'merkez-isi-sticky-cta'    => '/assets/css/components/sticky-cta.css',
-		'merkez-isi-home'          => '/assets/css/pages/home.css',
-		'merkez-isi-services'      => '/assets/css/pages/services.css',
-		'merkez-isi-contact'       => '/assets/css/pages/contact.css',
-	);
+	if ( in_array( 'current-menu-item', $item->classes, true ) ) {
+		$atts['aria-current'] = 'page';
+	}
 
-	foreach ( $css_files as $handle => $path ) {
-		wp_enqueue_style(
-			$handle,
-			MERKEZ_ISI_CHILD_URI . $path,
-			array( 'merkez-isi-parent-style' ),
-			MERKEZ_ISI_CHILD_VERSION
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'merkez_hidrofor_nav_menu_link_atts', 10, 2 );
+
+/**
+ * Enqueue parent + child styles, in the same cascade order the static design used:
+ * base -> layout -> components -> page-specific. Avril's own style.css loads first
+ * so any markup we don't override still renders sanely.
+ */
+function merkez_hidrofor_assets() {
+	$ver = MERKEZ_HIDROFOR_VERSION;
+
+	wp_enqueue_style( 'avril-parent-style', get_template_directory_uri() . '/style.css', array(), null );
+
+	$prev = 'avril-parent-style';
+
+	$base = array( 'reset', 'tokens', 'typography', 'global' );
+	foreach ( $base as $handle ) {
+		$h = 'mh-base-' . $handle;
+		wp_enqueue_style( $h, MERKEZ_HIDROFOR_URI . '/assets/css/base/' . $handle . '.css', array( $prev ), $ver );
+		$prev = $h;
+	}
+
+	wp_enqueue_style( 'mh-layout-container', MERKEZ_HIDROFOR_URI . '/assets/css/layout/container.css', array( $prev ), $ver );
+	$prev = 'mh-layout-container';
+
+	$components = array( 'button', 'nav', 'page-header', 'service-card', 'trust-bar', 'process-steps', 'cta-band', 'footer', 'sticky-cta', 'entry-content' );
+	foreach ( $components as $handle ) {
+		$h = 'mh-component-' . $handle;
+		wp_enqueue_style( $h, MERKEZ_HIDROFOR_URI . '/assets/css/components/' . $handle . '.css', array( $prev ), $ver );
+		$prev = $h;
+	}
+
+	if ( is_front_page() ) {
+		wp_enqueue_style( 'mh-page-home', MERKEZ_HIDROFOR_URI . '/assets/css/pages/home.css', array( $prev ), $ver );
+		$prev = 'mh-page-home';
+	} elseif ( is_page_template( 'template-iletisim.php' ) ) {
+		wp_enqueue_style( 'mh-page-contact', MERKEZ_HIDROFOR_URI . '/assets/css/pages/contact.css', array( $prev ), $ver );
+		$prev = 'mh-page-contact';
+	}
+
+	// Required theme identity stylesheet (WP header block) loads last.
+	wp_enqueue_style( 'merkez-hidrofor-style', get_stylesheet_uri(), array( $prev ), $ver );
+
+	// Single ES module entry point. nav.js / reveal.js / sticky-cta.js are loaded by
+	// main.js itself via import/dynamic import — they are NOT separately enqueued,
+	// they just need to exist at the same relative path for the browser to resolve.
+	wp_enqueue_script( 'mh-main', MERKEZ_HIDROFOR_URI . '/assets/js/main.js', array(), $ver, true );
+}
+add_action( 'wp_enqueue_scripts', 'merkez_hidrofor_assets' );
+
+/**
+ * Add type="module" to our main script tag. Using the script_loader_tag filter
+ * instead of wp_enqueue_script_module() keeps this working on older WP core
+ * versions (wp_enqueue_script_module needs WP 6.5+, which this install may predate).
+ */
+function merkez_hidrofor_module_script_tag( $tag, $handle, $src ) {
+	if ( 'mh-main' === $handle ) {
+		$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>' . "\n";
+	}
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'merkez_hidrofor_module_script_tag', 10, 3 );
+
+/**
+ * Start with .no-js on <body>; assets/js/main.js removes it once JS actually runs.
+ * Progressive-enhancement hook used by the [data-reveal] scroll-in animation.
+ */
+function merkez_hidrofor_body_class( $classes ) {
+	$classes[] = 'no-js';
+	return $classes;
+}
+add_filter( 'body_class', 'merkez_hidrofor_body_class' );
+
+/**
+ * Fallback favicon only if the client hasn't set a Site Icon in Customizer yet.
+ * Never overrides a real site icon once one is set.
+ */
+function merkez_hidrofor_fallback_favicon() {
+	if ( ! has_site_icon() ) {
+		printf(
+			'<link rel="icon" href="%s" type="image/svg+xml" />' . "\n",
+			esc_url( MERKEZ_HIDROFOR_URI . '/assets/images/icons/favicon.svg' )
 		);
 	}
-
-	// Business/contact data as a global the ES module JS reads before running (see inc/customizer.php
-	// merkez_isi_get_business_data() and assets/js/modules/contact-bind.js's DATA fallback chain).
-	// This is what makes phone/address/hours editable from wp-admin without a code deploy.
-	// `false` as the src is the standard WP idiom for "inline-only, no actual file" — see
-	// wp_add_inline_script() below, which attaches the real payload to this handle.
-	wp_register_script( 'merkez-isi-business-data', false, array(), MERKEZ_ISI_CHILD_VERSION, false );
-	wp_enqueue_script( 'merkez-isi-business-data' );
-	wp_add_inline_script(
-		'merkez-isi-business-data',
-		'window.MerkezIsiBusiness = ' . wp_json_encode( merkez_isi_get_business_data(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . ';',
-		'before'
-	);
-
-	wp_enqueue_script(
-		'merkez-isi-main',
-		MERKEZ_ISI_CHILD_URI . '/assets/js/main.js',
-		array( 'merkez-isi-business-data' ),
-		MERKEZ_ISI_CHILD_VERSION,
-		true
-	);
 }
-add_action( 'wp_enqueue_scripts', 'merkez_isi_enqueue_assets' );
-
-/**
- * main.js is an ES module (static `import` statements to ./modules/*.js) — wp_enqueue_script()
- * has no native "module" type until WordPress 6.5's Script Modules API. To stay compatible with
- * older WP installs (unknown here — verify the live site's version before activating), tag this
- * one handle's <script> as type="module" via the standard pre-6.5 filter technique.
- */
-function merkez_isi_module_script_tag( $tag, $handle, $src ) {
-	if ( 'merkez-isi-main' !== $handle ) {
-		return $tag;
-	}
-	return '<script type="module" src="' . esc_url( $src ) . '"></script>' . "\n";
-}
-add_filter( 'script_loader_tag', 'merkez_isi_module_script_tag', 10, 3 );
-
-/**
- * Best-effort cleanup of parent-theme/page-builder assets this design doesn't use, so the
- * WordPress port doesn't silently regress the static site's Lighthouse 97-100 performance
- * (see MURAT-KOMBI-SITE-AUDIT.md P0.9 / section 17.9 — Avril + any Elementor-style builder
- * typically loads jQuery, animation and slider bundles this design has no use for).
- *
- * UNVERIFIED handle names below — these are common Avril/Elementor conventions, NOT confirmed
- * against the live site's actual enqueued handles (no server/admin access during this
- * implementation). Before activating: view-source the live homepage, find every enqueued
- * <link>/<script> this design doesn't need, and replace the handle guesses below with the real
- * ones (Query Monitor or the browser Network tab's "Initiator" column will show exact handles).
- */
-function merkez_isi_dequeue_unused_parent_assets() {
-	$maybe_unused_styles = array( 'avril-style', 'avril-fonts', 'elementor-frontend', 'elementor-icons', 'font-awesome' );
-	$maybe_unused_scripts = array( 'avril-slider', 'avril-custom', 'elementor-frontend', 'jquery-migrate' );
-
-	foreach ( $maybe_unused_styles as $handle ) {
-		if ( wp_style_is( $handle, 'enqueued' ) ) {
-			wp_dequeue_style( $handle );
-		}
-	}
-	foreach ( $maybe_unused_scripts as $handle ) {
-		if ( wp_script_is( $handle, 'enqueued' ) ) {
-			wp_dequeue_script( $handle );
-		}
-	}
-}
-add_action( 'wp_enqueue_scripts', 'merkez_isi_dequeue_unused_parent_assets', 100 );
-
-/**
- * Resolve a page's front-end URL by its slug, with a graceful home_url() fallback so templates
- * never fatal or link to a 404 if a page hasn't been created/migrated yet under that slug.
- */
-function merkez_isi_page_url( $slug, $fallback_path = '' ) {
-	$page = get_page_by_path( $slug );
-	if ( $page ) {
-		return get_permalink( $page );
-	}
-	return home_url( '/' . ltrim( $fallback_path ?: $slug, '/' ) . '/' );
-}
+add_action( 'wp_head', 'merkez_hidrofor_fallback_favicon', 1 );
