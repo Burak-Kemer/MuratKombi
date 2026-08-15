@@ -33,13 +33,13 @@ $mh_home_services = array(
 		'icon'  => 'kazan',
 		'title' => 'Kazan Servisi',
 		'desc'  => 'Kazan sistemlerinde teknik inceleme ve bakım hizmeti sunuyoruz.',
-		'slug'  => null,
+		'slug'  => 'kazan-servisi',
 	),
 	array(
 		'icon'  => 'kombi',
 		'title' => 'Kombi Servisi',
 		'desc'  => 'Kombi arıza tespiti, bakım ve onarım desteği için bize ulaşın.',
-		'slug'  => null,
+		'slug'  => 'kombi-servisi',
 	),
 	array(
 		'icon'  => 'dalgic',

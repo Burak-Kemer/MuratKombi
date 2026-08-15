@@ -56,6 +56,16 @@ merkez_hidrofor_breadcrumbs();
 			<p><?php echo esc_html( implode( ', ', $mh_business['service_districts'] ) ); ?> dahil <?php echo esc_html( $mh_business['service_area'] ); ?> genelinde dalgıç pompa servisi veriyoruz.</p>
 		</div>
 
+		<div>
+			<h2>Sık Sorulan Sorular</h2>
+
+			<h3>Dalgıç pompa kuyudan çıkarılmadan tamir edilebilir mi?</h3>
+			<p>Arızanın türüne bağlıdır; bazı durumlarda yerinde elektriksel kontrol yeterli olabilir, bazı arızalarda pompanın kuyudan çıkarılması gerekir. Kesin yöntem yerinde değerlendirme sonrası belirlenir.</p>
+
+			<h3>7/24 dalgıç pompa servisi veriyor musunuz?</h3>
+			<p>Evet, <?php echo esc_html( $mh_business['hours'] ); ?> dalgıç pompa arıza ve servis desteği sağlıyoruz.</p>
+		</div>
+
 		<?php merkez_hidrofor_related_services( 'dalgic-pompa-tamiri' ); ?>
 	</div>
 </section>

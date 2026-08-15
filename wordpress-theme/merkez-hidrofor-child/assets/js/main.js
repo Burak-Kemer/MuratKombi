@@ -9,11 +9,13 @@
 
 import { initNav } from "./modules/nav.js";
 import { initReveal } from "./modules/reveal.js";
+import { initTracking } from "./modules/tracking.js";
 
 document.documentElement.classList.remove("no-js");
 
 initNav();
 initReveal();
+initTracking();
 
 if (document.querySelector(".sticky-cta")) {
   import("./modules/sticky-cta.js").then(({ initStickyCta }) => initStickyCta());

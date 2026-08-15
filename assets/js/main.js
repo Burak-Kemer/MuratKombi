@@ -4,12 +4,14 @@
 import { initNav } from "./modules/nav.js";
 import { initReveal } from "./modules/reveal.js";
 import { initContactBind } from "./modules/contact-bind.js";
+import { initTracking } from "./modules/tracking.js";
 
 document.documentElement.classList.remove("no-js");
 
 initNav();
 initReveal();
 initContactBind();
+initTracking();
 
 if (document.querySelector(".sticky-cta")) {
   import("./modules/sticky-cta.js").then(({ initStickyCta }) => initStickyCta());

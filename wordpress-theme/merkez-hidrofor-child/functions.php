@@ -19,6 +19,7 @@ define( 'MERKEZ_HIDROFOR_MENU_LOCATION', 'primary_menu' );
 
 require_once MERKEZ_HIDROFOR_DIR . '/inc/icons.php';
 require_once MERKEZ_HIDROFOR_DIR . '/inc/customizer.php';
+require_once MERKEZ_HIDROFOR_DIR . '/inc/tracking.php';
 require_once MERKEZ_HIDROFOR_DIR . '/inc/seo.php';
 
 /**

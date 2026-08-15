@@ -67,6 +67,16 @@ merkez_hidrofor_breadcrumbs();
 			<p><?php echo esc_html( implode( ', ', $mh_business['service_districts'] ) ); ?> dahil <?php echo esc_html( $mh_business['service_area'] ); ?> genelinde Wilo pompa servisi veriyoruz.</p>
 		</div>
 
+		<div>
+			<h2>Sık Sorulan Sorular</h2>
+
+			<h3>Yetkili Wilo servisi misiniz?</h3>
+			<p>Wilo markasının resmi yetkili servisi olduğumuza dair bir sertifikasyonumuz yoktur; Wilo marka pompalarda bağımsız teknik servis, bakım ve onarım desteği sunuyoruz.</p>
+
+			<h3>7/24 Wilo pompa arıza servisi veriyor musunuz?</h3>
+			<p>Evet, <?php echo esc_html( $mh_business['hours'] ); ?> Wilo pompa arıza ve servis desteği sağlıyoruz.</p>
+		</div>
+
 		<?php merkez_hidrofor_related_services( 'wilo-servisi' ); ?>
 	</div>
 </section>

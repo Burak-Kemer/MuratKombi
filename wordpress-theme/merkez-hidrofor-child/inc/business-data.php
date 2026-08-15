@@ -78,5 +78,7 @@ return array(
 		'hidrofor-pompa-servisi' => 'Hidrofor Pompa Servisi',
 		'dalgic-pompa-tamiri'    => 'Dalgıç Pompa Tamiri',
 		'otomasyon-servisi'      => 'Otomasyon Servisi',
+		'kazan-servisi'          => 'Kazan Servisi',
+		'kombi-servisi'          => 'Kombi Servisi',
 	),
 );

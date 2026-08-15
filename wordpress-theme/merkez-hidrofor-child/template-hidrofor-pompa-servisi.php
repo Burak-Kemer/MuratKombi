@@ -57,6 +57,16 @@ merkez_hidrofor_breadcrumbs();
 			<p><?php echo esc_html( implode( ', ', $mh_business['service_districts'] ) ); ?> dahil <?php echo esc_html( $mh_business['service_area'] ); ?> genelinde hidrofor pompa servisi veriyoruz.</p>
 		</div>
 
+		<div>
+			<h2>Sık Sorulan Sorular</h2>
+
+			<h3>Pompa mı değişmeli yoksa tamir mi yeterli?</h3>
+			<p>Bu, arızanın türüne ve pompanın durumuna bağlıdır; kesin karar yerinde yapılan teknik inceleme sonrası verilir.</p>
+
+			<h3>7/24 pompa arıza servisi veriyor musunuz?</h3>
+			<p>Evet, <?php echo esc_html( $mh_business['hours'] ); ?> hidrofor pompa arıza ve servis desteği sağlıyoruz.</p>
+		</div>
+
 		<?php merkez_hidrofor_related_services( 'hidrofor-pompa-servisi' ); ?>
 	</div>
 </section>

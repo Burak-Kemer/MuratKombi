@@ -48,6 +48,16 @@ merkez_hidrofor_breadcrumbs();
 			<p><?php echo esc_html( implode( ', ', $mh_business['service_districts'] ) ); ?> dahil <?php echo esc_html( $mh_business['service_area'] ); ?> genelinde hizmet veriyoruz.</p>
 		</div>
 
+		<div>
+			<h2>Sık Sorulan Sorular</h2>
+
+			<h3>Hangi sistemler için otomasyon desteği veriyorsunuz?</h3>
+			<p>Kombi, kazan, hidrofor ve pompa sistemlerinin otomatik kontrol ihtiyaçlarında destek veriyoruz. Sisteminize özel kapsam, iletişime geçtiğinizde birlikte netleştirilir.</p>
+
+			<h3>7/24 destek veriyor musunuz?</h3>
+			<p>Evet, <?php echo esc_html( $mh_business['hours'] ); ?> hizmet veriyoruz.</p>
+		</div>
+
 		<?php merkez_hidrofor_related_services( 'otomasyon-servisi' ); ?>
 	</div>
 </section>
