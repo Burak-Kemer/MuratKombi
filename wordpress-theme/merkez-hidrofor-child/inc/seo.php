@@ -163,3 +163,113 @@ add_filter( 'wpseo_schema_organization', 'merkez_hidrofor_schema_organization' )
 function merkez_hidrofor_schema_phone( $tel_href ) {
 	return str_replace( 'tel:', '', $tel_href );
 }
+
+/**
+ * Canonical fallback — staging QA (2026-08-16) reported canonical tags not
+ * appearing on some pages. Searched the entire child theme for anything that
+ * could suppress canonical (remove_action on wp_head's rel_canonical,
+ * add_filter('wpseo_canonical', ...), etc.) and found NONE — this theme never
+ * touched canonical output before this function. The missing tag is therefore
+ * not caused by child-theme code; likely causes are WordPress/Yoast
+ * configuration (e.g. permalink structure), a conflicting plugin, or a
+ * staging-specific caching/URL issue — none of which can be fixed from here.
+ *
+ * This filter is a safety net only: it hooks Yoast's OWN 'wpseo_canonical'
+ * extension point (same pattern as merkez_hidrofor_schema_organization()
+ * above) and fills in a value ONLY when Yoast's own resolution produced an
+ * empty one. It never runs when Yoast already has a canonical, so it cannot
+ * create a duplicate/competing tag or override anything an admin configured.
+ *
+ * @param string|false $canonical Yoast's own resolved canonical, or false/empty.
+ * @return string|false
+ */
+function merkez_hidrofor_canonical_fallback( $canonical ) {
+	if ( ! empty( $canonical ) ) {
+		return $canonical;
+	}
+	if ( is_singular() ) {
+		return get_permalink();
+	}
+	return $canonical;
+}
+add_filter( 'wpseo_canonical', 'merkez_hidrofor_canonical_fallback', 20 );
+
+/**
+ * Default meta descriptions for pages staging QA (2026-08-16) found missing
+ * one: Hakkımızda, İletişim, Markalar. Built from the same verified
+ * merkez_hidrofor_business() data as the rest of the site (never a separate
+ * hardcoded copy that could drift), keyed by page slug.
+ *
+ * "Markalar" has no standalone page in this build (SEO-CONTENT-MIGRATION-PLAN.md
+ * §1: consolidated into the homepage's "Çalıştığımız Markalar" section) — the
+ * slug is kept here in case a standalone /markalar/ page still exists on the
+ * site being migrated (old production content not yet reconciled) and gets
+ * assigned page.php before that consolidation is finalized.
+ *
+ * @param array $business Return value of merkez_hidrofor_business().
+ * @return array<string,string> Slug => meta description.
+ */
+function merkez_hidrofor_default_meta_descriptions( $business ) {
+	return array(
+		'hakkimizda' => sprintf(
+			'%s, %s yılından beri %s\'nda hidrofor, pompa, kazan ve kombi teknik servisi veriyor. %s tecrübe, %s hizmet.',
+			$business['legal_name'],
+			$business['founded'],
+			$business['service_area'],
+			$business['experience'],
+			$business['hours']
+		),
+		'hakkimizda-2' => sprintf(
+			'%s, %s yılından beri %s\'nda hidrofor, pompa, kazan ve kombi teknik servisi veriyor. %s tecrübe, %s hizmet.',
+			$business['legal_name'],
+			$business['founded'],
+			$business['service_area'],
+			$business['experience'],
+			$business['hours']
+		),
+		'iletisim' => sprintf(
+			'%s ile %s ulaşın: %s. %s\'nda hidrofor, kombi, kazan ve pompa arızaları için hemen arayın veya WhatsApp\'tan yazın.',
+			$business['legal_name'],
+			$business['hours'],
+			$business['primary_call']['label'],
+			$business['service_area']
+		),
+		'markalar' => sprintf(
+			'%s marka pompa ve hidrofor sistemlerinde bağımsız teknik servis, bakım ve onarım desteği sunuyoruz. %s\'nda %s hizmet.',
+			implode( ', ', $business['brands'] ),
+			$business['service_area'],
+			$business['hours']
+		),
+	);
+}
+
+/**
+ * Yoast 'wpseo_metadesc' fallback — mirrors merkez_hidrofor_canonical_fallback()
+ * above: only fills a gap, never overrides a value an admin already entered in
+ * Yoast's own "Meta description" field for that page (checked directly via the
+ * '_yoast_wpseo_metadesc' postmeta key, not just the filtered value, so this
+ * can't clobber a manual edit even if Yoast's own default-template output
+ * happened to be non-empty for some other reason).
+ *
+ * @param string $desc Yoast's own resolved meta description.
+ * @return string
+ */
+function merkez_hidrofor_wpseo_metadesc_fallback( $desc ) {
+	if ( ! is_page() ) {
+		return $desc;
+	}
+
+	$post = get_queried_object();
+	if ( empty( $post->post_name ) || empty( $post->ID ) ) {
+		return $desc;
+	}
+
+	$manual = get_post_meta( $post->ID, '_yoast_wpseo_metadesc', true );
+	if ( ! empty( $manual ) ) {
+		return $desc;
+	}
+
+	$defaults = merkez_hidrofor_default_meta_descriptions( merkez_hidrofor_business() );
+	return isset( $defaults[ $post->post_name ] ) ? $defaults[ $post->post_name ] : $desc;
+}
+add_filter( 'wpseo_metadesc', 'merkez_hidrofor_wpseo_metadesc_fallback' );

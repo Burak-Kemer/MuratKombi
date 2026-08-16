@@ -100,6 +100,13 @@ merkez_hidrofor_breadcrumbs();
 			</ul>
 		</div>
 
+		<?php if ( merkez_hidrofor_has_contact_form() ) : ?>
+			<div class="contact-form-wrap" data-reveal>
+				<h2><?php esc_html_e( 'Formu Doldurun, Size Ulaşalım', 'merkez-hidrofor-child' ); ?></h2>
+				<?php merkez_hidrofor_contact_form(); ?>
+			</div>
+		<?php endif; ?>
+
 		<?php merkez_hidrofor_related_services(); ?>
 	</div>
 </section>

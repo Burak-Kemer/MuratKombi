@@ -21,6 +21,7 @@ require_once MERKEZ_HIDROFOR_DIR . '/inc/icons.php';
 require_once MERKEZ_HIDROFOR_DIR . '/inc/customizer.php';
 require_once MERKEZ_HIDROFOR_DIR . '/inc/tracking.php';
 require_once MERKEZ_HIDROFOR_DIR . '/inc/seo.php';
+require_once MERKEZ_HIDROFOR_DIR . '/inc/contact-form.php';
 
 /**
  * Central business/contact data: the static catalog (services/brands/districts/
@@ -122,6 +123,9 @@ function merkez_hidrofor_assets() {
 	} elseif ( is_page_template( 'template-iletisim.php' ) ) {
 		wp_enqueue_style( 'mh-page-contact', MERKEZ_HIDROFOR_URI . '/assets/css/pages/contact.css', array( $prev ), $ver );
 		$prev = 'mh-page-contact';
+
+		wp_enqueue_style( 'mh-component-contact-form', MERKEZ_HIDROFOR_URI . '/assets/css/components/contact-form.css', array( $prev ), $ver );
+		$prev = 'mh-component-contact-form';
 	}
 
 	// Required theme identity stylesheet (WP header block) loads last.

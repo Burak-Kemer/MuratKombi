@@ -60,6 +60,10 @@
   gap: var(--space-6);
 }
 
+.nav__links > li {
+  position: relative;
+}
+
 .nav__link {
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -69,6 +73,27 @@
   position: relative;
   padding-block: var(--space-1);
   transition: color var(--duration-fast) var(--ease-premium);
+}
+
+/* "menu-item-has-children" is added automatically by WordPress core
+   (Walker_Nav_Menu) to any <li> with a submenu — no theme code assigns it.
+   Small caret so a dropdown parent (e.g. "Markalar") is visually
+   distinguishable before it's opened. */
+.nav__links > .menu-item-has-children > .nav__link::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-inline-start: var(--space-2);
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--duration-fast) var(--ease-premium);
+}
+
+.nav__links > .menu-item-has-children:hover > .nav__link::before,
+.nav__links > .menu-item-has-children:focus-within > .nav__link::before {
+  transform: translateY(0) rotate(225deg);
 }
 
 .nav__link::after {
@@ -92,6 +117,59 @@
 .nav__link:hover::after,
 .nav__link[aria-current="page"]::after {
   transform: scaleX(1);
+}
+
+/* Dropdown submenu (e.g. "Markalar" > "Wilo Servisi" / "Hidrofor Servisi").
+   Desktop-only — .nav__links itself is display:none below 900px, and the
+   mobile drawer override further down replaces this positioning entirely so
+   the same markup renders as a plain expanded list inside the drawer. */
+.sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  min-width: 220px;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity var(--duration-fast) var(--ease-premium),
+    transform var(--duration-fast) var(--ease-premium),
+    visibility 0s linear var(--duration-fast);
+}
+
+.nav__links > .menu-item-has-children:hover > .sub-menu,
+.nav__links > .menu-item-has-children:focus-within > .sub-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.sub-menu .nav__link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-sm);
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+}
+
+.sub-menu .nav__link:hover,
+.sub-menu .nav__link:focus-visible {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.sub-menu .nav__link::after {
+  display: none;
 }
 
 .nav__actions {
@@ -163,6 +241,35 @@
 
 .nav__drawer .btn {
   margin-top: var(--space-4);
+}
+
+/* Cancel the desktop hover-dropdown positioning inside the mobile drawer —
+   touch devices have no hover, so "Markalar" and its children (Wilo Servisi,
+   Hidrofor Servisi) must render as a plain, always-visible indented list
+   instead of an absolutely-positioned popover. */
+.nav__drawer .sub-menu {
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  min-width: 0;
+  margin-block-start: var(--space-3);
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+}
+
+.nav__drawer .sub-menu .nav__link {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--color-text-dim);
+  padding-block: var(--space-2);
+}
+
+.nav__drawer .menu-item-has-children > .nav__link::before {
+  display: none;
 }
 
 @media (min-width: 900px) {

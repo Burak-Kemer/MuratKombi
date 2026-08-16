@@ -42,12 +42,26 @@ export function initTracking() {
 			pushEvent("service_cta_click", { cta_type: "whatsapp" });
 		}
 	});
+
+	/* Contact Form 7's real, documented success event (fires on `document`,
+	   bubbled from the `.wpcf7` form wrapper — see inc/contact-form.php for
+	   where the shortcode itself is rendered). Inert until the plugin is
+	   actually installed and a real form exists: no listener ever fires, no
+	   error either way, since this only *listens* for an event no code here
+	   needs to trigger.
+
+	   Deliberately does NOT read `event.detail.inputs` (CF7 puts the
+	   submitted field values there, e.g. name/phone/message) — only the fact
+	   that a submission succeeded is reported, never its content. If a
+	   different form plugin is chosen instead of Contact Form 7, swap the
+	   event name below for that plugin's own success event. */
+	document.addEventListener("wpcf7mailsent", () => {
+		trackFormSubmit("iletisim");
+	});
 }
 
-/* Stub for a future contact form — not used anywhere yet (this design has none by
-   choice, see MURAT-KOMBI-SITE-AUDIT.md section 17.1: no form is a deliberate
-   "no unnecessary step" conversion decision). Kept here so a form added later has a
-   ready, consistent event name instead of an ad-hoc one. */
+/* Fires contact_form_submit with no personal data in the payload — just the
+   form's identifying name, same shape as every other event in this file. */
 export function trackFormSubmit(formName) {
 	pushEvent("contact_form_submit", { form_name: formName || "unknown" });
 }
