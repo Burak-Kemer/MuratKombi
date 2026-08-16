@@ -24,6 +24,24 @@
   border-color: var(--color-border);
 }
 
+/* WordPress's own admin toolbar (visible to logged-in staff/QA testers) is
+   ALSO position:fixed at the true viewport top, with z-index:99999 — far
+   above .site-header's z-index. WordPress adds "admin-bar" to body_class()
+   automatically whenever the toolbar is showing (see header.php's
+   body_class() call), so without this offset the header — and everything in
+   it, including the "Markalar" row — renders underneath/overlapping the
+   toolbar. 32px/46px match the toolbar's own height at its two responsive
+   states (WordPress core's own breakpoint is 782px, not this theme's 900px). */
+body.admin-bar .site-header {
+  inset-block-start: 32px;
+}
+
+@media (max-width: 782px) {
+  body.admin-bar .site-header {
+    inset-block-start: 46px;
+  }
+}
+
 .nav {
   display: flex;
   align-items: center;
@@ -138,6 +156,7 @@
   box-shadow: var(--shadow-md);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: translateY(4px);
   transition: opacity var(--duration-fast) var(--ease-premium),
     transform var(--duration-fast) var(--ease-premium),
@@ -148,6 +167,7 @@
 .nav__links > .menu-item-has-children:focus-within > .sub-menu {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateY(0);
   transition-delay: 0s;
 }
@@ -227,8 +247,36 @@
   transition: transform var(--duration-base) var(--ease-premium);
 }
 
+/* Same admin-bar collision as .site-header (see the body.admin-bar rule
+   above) — the drawer is also position:fixed with inset:0, so without this
+   its top edge (and everything painted at the very top of the full-viewport
+   overlay) sits underneath WordPress's toolbar for logged-in staff/QA. Only
+   overrides the top inset; left/right/bottom stay at 0 from the shorthand
+   above. Doesn't affect the "closed" translateY(-100%) state's off-screen
+   direction, only the resting position it animates to/from. */
+body.admin-bar .nav__drawer {
+  inset-block-start: 32px;
+}
+
+@media (max-width: 782px) {
+  body.admin-bar .nav__drawer {
+    inset-block-start: 46px;
+  }
+}
+
 .nav__drawer.is-open {
   transform: translateY(0);
+}
+
+/* .nav__links ships display:none by default and only becomes flex at the
+   desktop breakpoint further below (it's shared markup/class with the
+   desktop menu) — without this, the drawer's own copy of the menu never
+   becomes visible at any mobile width, leaving only the "HEMEN ARA" button.
+   flex-direction:column stacks the links vertically instead of the desktop
+   row; align-items/gap are already inherited from the base .nav__links rule. */
+.nav__drawer .nav__links {
+  display: flex;
+  flex-direction: column;
 }
 
 .nav__drawer .nav__link {
@@ -251,6 +299,7 @@
   position: static;
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: none;
   min-width: 0;
   margin-block-start: var(--space-3);
